@@ -1,0 +1,36 @@
+{
+  "name": "vker-newtab",
+  "description": "virtual-worker-newtab（chrome定制化新窗口页面）",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:zip": "vite build && node zip.js",
+    "build:watch": "vite build --watch",
+    "build:entry": "buildEntry=newtab,action vite build --watch"
+  },
+  "dependencies": {
+    "@orama/orama": "^2.0.12",
+    "@orama/plugin-parsedoc": "^2.0.12",
+    "@orama/stopwords": "^2.0.12",
+    "@orama/tokenizers": "^2.0.12",
+    "@vorker/utils": "^0.0.1",
+    "antd": "^5.14.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.262",
+    "@types/node": "^20.11.24",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "cross-zip": "^4.0.1",
+    "less": "^4.2.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4"
+  }
+}

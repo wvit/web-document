@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "web-document",
+  "description": "web-document",
+  "version": "0.0.1",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content/index.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "action/index.html",
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "matches": ["*://*/*"],
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "storage",
+    "proxy",
+    "webRequest",
+    "webNavigation"
+  ],
+  "host_permissions": ["*://*/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["*.png", "content/*.js"],
+      "matches": ["*://*/*"]
+    }
+  ]
+}

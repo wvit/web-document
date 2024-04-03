@@ -1,0 +1,32 @@
+// 会影响antd组件库样式
+// @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+iframe {
+  border: none;
+}
+
+.card-item {
+  background: #fff;
+  transition: 0.3s;
+  border-radius: 4px;
+
+  &:hover {
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.ant-spin-container {
+  height: 100%;
+}
