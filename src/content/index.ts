@@ -1,13 +1,4 @@
-import { create, insert } from '@orama/orama'
-import { populateFromGlob, defaultHtmlSchema } from '@orama/plugin-parsedoc'
 import { Dom } from '@/utils'
-
-const db = await create({
-  schema: defaultHtmlSchema,
-})
-
-await populateFromGlob(db, 'docs/**/*.html')
-
 
 window.addEventListener('load', async () => {
   const html = Dom.create('html')

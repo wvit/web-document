@@ -12,10 +12,6 @@
     "build:entry": "buildEntry=newtab,action vite build --watch"
   },
   "dependencies": {
-    "@orama/orama": "^2.0.12",
-    "@orama/plugin-parsedoc": "^2.0.12",
-    "@orama/stopwords": "^2.0.12",
-    "@orama/tokenizers": "^2.0.12",
     "@vorker/utils": "^0.0.1",
     "antd": "^5.14.1",
     "react": "^18.2.0",
