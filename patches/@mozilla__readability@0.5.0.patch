@@ -1,0 +1,13 @@
+diff --git a/Readability.js b/Readability.js
+index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..62ebdb0a0c23c6af289e95da3eb0fef71ac6db9b 100644
+--- a/Readability.js
++++ b/Readability.js
+@@ -154,7 +154,7 @@ Readability.prototype = {
+ 
+   ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
+ 
+-  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "style", "valign", "vspace" ],
++  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "valign", "vspace" ],
+ 
+   DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],
+ 
