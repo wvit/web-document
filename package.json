@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "patch": "pnpm patch-commit 'patches/readability'",
     "build:zip": "vite build && node zip.js",
     "build:watch": "vite build --watch",
     "build:entry": "buildEntry=newtab,action vite build --watch"
