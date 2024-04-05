@@ -1,12 +1,19 @@
 diff --git a/Readability.js b/Readability.js
-index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..62ebdb0a0c23c6af289e95da3eb0fef71ac6db9b 100644
+index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..93c78c55dd9918b0e1b99a75219ce7f6b1cbc1f6 100644
 --- a/Readability.js
 +++ b/Readability.js
-@@ -154,7 +154,7 @@ Readability.prototype = {
+@@ -150,11 +150,13 @@ Readability.prototype = {
+ 
+   UNLIKELY_ROLES: [ "menu", "menubar", "complementary", "navigation", "alert", "alertdialog", "dialog" ],
+ 
+-  DIV_TO_P_ELEMS: new Set([ "BLOCKQUOTE", "DL", "DIV", "IMG", "OL", "P", "PRE", "TABLE", "UL" ]),
++  /** marker: 删除 “DIV” 值 */
++  DIV_TO_P_ELEMS: new Set([ "BLOCKQUOTE", "DL", "IMG", "OL", "P", "PRE", "TABLE", "UL" ]),
  
    ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
  
 -  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "style", "valign", "vspace" ],
++  /** marker: 删除 “style” 值 */
 +  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "valign", "vspace" ],
  
    DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],

@@ -1,6 +1,5 @@
 import path from 'path'
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   root: 'src',
@@ -17,17 +16,13 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
 
     rollupOptions: {
-      input: {
-        'background/index': 'src/background/index.ts',
-        'action/index.html': 'src/action/index.html',
-      },
+      input: 'src/content/index.ts',
       output: {
-        entryFileNames: `[name].js`,
+        entryFileNames: `content/[name].js`,
+        format: 'iife',
       },
     },
   },
-
-  plugins: [react()],
 
   resolve: {
     alias: {

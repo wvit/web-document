@@ -1,16 +1,15 @@
 {
-  "name": "vker-newtab",
-  "description": "virtual-worker-newtab（chrome定制化新窗口页面）",
+  "name": "web-document",
+  "description": "",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
     "patch": "pnpm patch-commit 'patches/readability'",
-    "build:zip": "vite build && node zip.js",
-    "build:watch": "vite build --watch",
-    "build:entry": "buildEntry=newtab,action vite build --watch"
+    "build": "vite build --config content.vite.ts  && vite build",
+    "build:content": "vite build --config content.vite.ts --watch",
+    "build:watch":  "vite build --watch",
+    "build:zip": "npm run build && node zip.js"
   },
   "dependencies": {
     "@mozilla/readability": "0.5.0",

@@ -154,6 +154,7 @@ Readability.prototype = {
 
   ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
 
+  /** marker：删除 “style” 值 */
   PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "valign", "vspace" ],
 
   DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],
@@ -966,7 +967,8 @@ Readability.prototype = {
         }
 
         // Turn all divs that don't have children block level elements into p's
-        if (node.tagName === "DIV") {
+        /** marker: 此段代码会将 “div” 转为 “p” 标签 */
+        if (node.tagName === "DIV" && false) {
           // Put phrasing content into paragraphs.
           var p = null;
           var childNode = node.firstChild;
