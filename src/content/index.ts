@@ -9,15 +9,13 @@ Message.content.on(
     const result = new Readability(documentClone, {
       keepClasses: true,
     }).parse()
-
+    
     for (const item of Dom.queryAll('link')) {
       if (item.attr('rel')?.includes('stylesheet')) {
         const css = await fetch(item.href).then(res => res.text())
         styles.push(css)
       }
     }
-
-    console.log(111111, result)
 
     const pageContent = `
     <h2 

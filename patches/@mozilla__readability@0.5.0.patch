@@ -1,20 +1,34 @@
 diff --git a/Readability.js b/Readability.js
-index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..93c78c55dd9918b0e1b99a75219ce7f6b1cbc1f6 100644
+index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..93cbeef8ea02479ce394014b956a6a350a231764 100644
 --- a/Readability.js
 +++ b/Readability.js
-@@ -150,11 +150,13 @@ Readability.prototype = {
- 
-   UNLIKELY_ROLES: [ "menu", "menubar", "complementary", "navigation", "alert", "alertdialog", "dialog" ],
- 
--  DIV_TO_P_ELEMS: new Set([ "BLOCKQUOTE", "DL", "DIV", "IMG", "OL", "P", "PRE", "TABLE", "UL" ]),
-+  /** marker: 删除 “DIV” 值 */
-+  DIV_TO_P_ELEMS: new Set([ "BLOCKQUOTE", "DL", "IMG", "OL", "P", "PRE", "TABLE", "UL" ]),
+@@ -154,7 +154,8 @@ Readability.prototype = {
  
    ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
  
 -  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "style", "valign", "vspace" ],
-+  /** marker: 删除 “style” 值 */
-+  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "valign", "vspace" ],
++  /** wv-marker: 程序中会移除这个数组里面的节点属性，这不是我想要的 */
++  PRESENTATIONAL_ATTRIBUTES: [],
  
    DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],
  
+@@ -191,7 +192,8 @@ Readability.prototype = {
+     // Readability cannot open relative uris so we convert them to absolute uris.
+     this._fixRelativeUris(articleContent);
+ 
+-    this._simplifyNestedElements(articleContent);
++    /** wv-marker: 这个方法会删除简化子级嵌套元素，这不是我想要的 */
++    // this._simplifyNestedElements(articleContent);
+ 
+     if (!this._keepClasses) {
+       // Remove classes.
+@@ -966,7 +968,8 @@ Readability.prototype = {
+         }
+ 
+         // Turn all divs that don't have children block level elements into p's
+-        if (node.tagName === "DIV") {
++        /** wv-marker: 此段代码会将 “div” 转为 “p” 标签，这不是我想要的 */
++        if (node.tagName === "DIV" && false) {
+           // Put phrasing content into paragraphs.
+           var p = null;
+           var childNode = node.firstChild;

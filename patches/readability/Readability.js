@@ -154,8 +154,8 @@ Readability.prototype = {
 
   ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
 
-  /** marker：删除 “style” 值 */
-  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "valign", "vspace" ],
+  /** wv-marker: 程序中会移除这个数组里面的节点属性，这不是我想要的 */
+  PRESENTATIONAL_ATTRIBUTES: [],
 
   DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],
 
@@ -192,7 +192,8 @@ Readability.prototype = {
     // Readability cannot open relative uris so we convert them to absolute uris.
     this._fixRelativeUris(articleContent);
 
-    this._simplifyNestedElements(articleContent);
+    /** wv-marker: 这个方法会删除简化子级嵌套元素，这不是我想要的 */
+    // this._simplifyNestedElements(articleContent);
 
     if (!this._keepClasses) {
       // Remove classes.
@@ -967,7 +968,7 @@ Readability.prototype = {
         }
 
         // Turn all divs that don't have children block level elements into p's
-        /** marker: 此段代码会将 “div” 转为 “p” 标签 */
+        /** wv-marker: 此段代码会将 “div” 转为 “p” 标签，这不是我想要的 */
         if (node.tagName === "DIV" && false) {
           // Put phrasing content into paragraphs.
           var p = null;

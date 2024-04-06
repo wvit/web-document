@@ -6,13 +6,13 @@ settings:
 
 patchedDependencies:
   '@mozilla/readability@0.5.0':
-    hash: xyqbojmk5giltgcyfaxoh6xbxa
+    hash: r27ztwdn7ovbeseestu5atbiiq
     path: patches/@mozilla__readability@0.5.0.patch
 
 dependencies:
   '@mozilla/readability':
     specifier: 0.5.0
-    version: 0.5.0(patch_hash=xyqbojmk5giltgcyfaxoh6xbxa)
+    version: 0.5.0(patch_hash=r27ztwdn7ovbeseestu5atbiiq)
   '@vorker/utils':
     specifier: ^0.0.4
     version: 0.0.4
@@ -615,7 +615,7 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@mozilla/readability@0.5.0(patch_hash=xyqbojmk5giltgcyfaxoh6xbxa):
+  /@mozilla/readability@0.5.0(patch_hash=r27ztwdn7ovbeseestu5atbiiq):
     resolution: {integrity: sha512-Z+CZ3QaosfFaTqvhQsIktyGrjFjSC0Fa4EMph4mqKnWhmyoGICsV/8QK+8HpXut6zV7zwfWwqDmEjtk1Qf6EgQ==}
     engines: {node: '>=14.0.0'}
     dev: false
