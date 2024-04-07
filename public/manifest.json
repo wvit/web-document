@@ -10,7 +10,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": ["<all_urls>"],
+      "js": ["lib/single-file-bootstrap.js", "lib/single-file.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
       "js": ["content/index.js"],
       "run_at": "document_end"
     }

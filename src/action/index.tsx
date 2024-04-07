@@ -7,7 +7,7 @@ import '@/styles/common.less'
 const App = () => {
   return (
     <ConfigProvider locale={zhCN}>
-      <div className="w-[800px] h-[600px] p-2 bg-[#f9f9f9] flex flex-col">
+      <div className="w-[800px] h-[600px] bg-[#f9f9f9] flex flex-col">
         <PageStorage />
       </div>
     </ConfigProvider>

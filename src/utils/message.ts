@@ -12,6 +12,8 @@ export namespace Action {
   export enum Content {
     /** 获取当前选项卡的页面内容 */
     GetPage = 'getPage',
+    /** 获取文章 */
+    GetArticle = 'GetArticle'
   }
 
   export enum Window {}

@@ -6,16 +6,16 @@ settings:
 
 patchedDependencies:
   '@mozilla/readability@0.5.0':
-    hash: r27ztwdn7ovbeseestu5atbiiq
+    hash: 3m2tqwhrwgypac5ua5jshurppm
     path: patches/@mozilla__readability@0.5.0.patch
 
 dependencies:
   '@mozilla/readability':
     specifier: 0.5.0
-    version: 0.5.0(patch_hash=r27ztwdn7ovbeseestu5atbiiq)
+    version: 0.5.0(patch_hash=3m2tqwhrwgypac5ua5jshurppm)
   '@vorker/utils':
-    specifier: ^0.0.4
-    version: 0.0.4
+    specifier: ^0.0.6
+    version: 0.0.6
   antd:
     specifier: ^5.14.1
     version: 5.16.0(react-dom@18.2.0)(react@18.2.0)
@@ -615,7 +615,7 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@mozilla/readability@0.5.0(patch_hash=r27ztwdn7ovbeseestu5atbiiq):
+  /@mozilla/readability@0.5.0(patch_hash=3m2tqwhrwgypac5ua5jshurppm):
     resolution: {integrity: sha512-Z+CZ3QaosfFaTqvhQsIktyGrjFjSC0Fa4EMph4mqKnWhmyoGICsV/8QK+8HpXut6zV7zwfWwqDmEjtk1Qf6EgQ==}
     engines: {node: '>=14.0.0'}
     dev: false
@@ -956,8 +956,8 @@ packages:
       - supports-color
     dev: true
 
-  /@vorker/utils@0.0.4:
-    resolution: {integrity: sha512-1mNf/TXgTiUfFZNvkAV2Ien2h6Zz0vnoBEBvuuaIkP/SguXWHq34/TOGMLTiwJOJJNvvBgp8du2i+9pA5/Q4Hg==}
+  /@vorker/utils@0.0.6:
+    resolution: {integrity: sha512-TiY6aqEmxAEZr7m09g9vbecK+RrdwLELQEgRe+PS31+y/1lXixZhZ7GtHJwpDjiFBkID8WIkQH1rq7yQfteVxA==}
     dependencies:
       csstype: 3.1.3
     dev: false

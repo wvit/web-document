@@ -1,5 +1,5 @@
 diff --git a/Readability.js b/Readability.js
-index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..93cbeef8ea02479ce394014b956a6a350a231764 100644
+index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..f559378758a07cb4945b1263c4fd79689cbd3f0e 100644
 --- a/Readability.js
 +++ b/Readability.js
 @@ -154,7 +154,8 @@ Readability.prototype = {
@@ -22,7 +22,27 @@ index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..93cbeef8ea02479ce394014b956a6a35
  
      if (!this._keepClasses) {
        // Remove classes.
-@@ -966,7 +968,8 @@ Readability.prototype = {
+@@ -544,7 +546,8 @@ Readability.prototype = {
+     var doc = this._doc;
+ 
+     // Remove all style tags in head
+-    this._removeNodes(this._getAllNodesWithTag(doc, ["style"]));
++    /** wv-marker：保留<style>标签 */
++    // this._removeNodes(this._getAllNodesWithTag(doc, ["style"]));
+ 
+     if (doc.body) {
+       this._replaceBrs(doc.body);
+@@ -667,7 +670,8 @@ Readability.prototype = {
+    * @return void
+    **/
+   _prepArticle: function(articleContent) {
+-    this._cleanStyles(articleContent);
++    /** wv-marker: 保留style属性 */
++    // this._cleanStyles(articleContent);
+ 
+     // Check for data tables before we continue, to avoid removing items in
+     // those tables, which will often be isolated even though they're
+@@ -966,7 +970,8 @@ Readability.prototype = {
          }
  
          // Turn all divs that don't have children block level elements into p's

@@ -546,7 +546,8 @@ Readability.prototype = {
     var doc = this._doc;
 
     // Remove all style tags in head
-    this._removeNodes(this._getAllNodesWithTag(doc, ["style"]));
+    /** wv-marker：保留<style>标签 */
+    // this._removeNodes(this._getAllNodesWithTag(doc, ["style"]));
 
     if (doc.body) {
       this._replaceBrs(doc.body);
@@ -669,7 +670,8 @@ Readability.prototype = {
    * @return void
    **/
   _prepArticle: function(articleContent) {
-    this._cleanStyles(articleContent);
+    /** wv-marker: 保留style属性 */
+    // this._cleanStyles(articleContent);
 
     // Check for data tables before we continue, to avoid removing items in
     // those tables, which will often be isolated even though they're
