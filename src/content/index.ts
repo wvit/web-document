@@ -42,27 +42,15 @@ Message.content.on(
     }).parse()!
     const htmlContent = `
       <div>
-        <h2
-          style="${styleToString({
-            'font-size': '24px',
-          })}"
-        >
+        <h2 style="${styleToString({ 'font-size': '24px' })}" >
           ${pageData.title}
         </h2>
         ${content}
       </div>
-
       <style>
-        body {
-          ${styleToString({
-            padding: '16px',
-            background: '#fff',
-          })}
-        }
+        body { ${styleToString({ padding: '12px', background: '#fff' })} }
       </style>
       `
-
-    console.log(111111, pageData, content)
 
     sendResponse({ ...pageData, htmlContent, textContent })
   }
