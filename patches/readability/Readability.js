@@ -154,8 +154,7 @@ Readability.prototype = {
 
   ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
 
-  /** wv-marker: 程序中会移除这个数组里面的节点属性，这不是我想要的 */
-  PRESENTATIONAL_ATTRIBUTES: [],
+  PRESENTATIONAL_ATTRIBUTES:  [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "style", "valign", "vspace" ],
 
   DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],
 
@@ -670,7 +669,7 @@ Readability.prototype = {
    * @return void
    **/
   _prepArticle: function(articleContent) {
-    /** wv-marker: 保留style属性 */
+    /** wv-marker: 保留style等标签属性 */
     // this._cleanStyles(articleContent);
 
     // Check for data tables before we continue, to avoid removing items in

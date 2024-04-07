@@ -1,18 +1,35 @@
+diff --git a/.eslintrc.js b/.eslintrc.js
+deleted file mode 100644
+index 1e010aaa6150da1f770789e0d2516f3123672a5a..0000000000000000000000000000000000000000
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 73c14d637eb1ef29459ca6433dfbef2a41ad60be..0000000000000000000000000000000000000000
+diff --git a/CODE_OF_CONDUCT.md b/CODE_OF_CONDUCT.md
+deleted file mode 100644
+index 498baa3fb0f09a2042d2c8657b67fc7832cc2c30..0000000000000000000000000000000000000000
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+deleted file mode 100644
+index 606223fd401f8cb8ed44cf637dd292382b18679e..0000000000000000000000000000000000000000
+diff --git a/LICENSE.md b/LICENSE.md
+deleted file mode 100644
+index ca8e58b203b6d96bca8a838b1104496e32dab70d..0000000000000000000000000000000000000000
+diff --git a/README.md b/README.md
+deleted file mode 100644
+index f29737194897d1063c2fe121a4c263675f1b0fdb..0000000000000000000000000000000000000000
 diff --git a/Readability.js b/Readability.js
-index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..f559378758a07cb4945b1263c4fd79689cbd3f0e 100644
+index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..8237b54b3441bb0d35be2790d9e11f676c112f4a 100644
 --- a/Readability.js
 +++ b/Readability.js
-@@ -154,7 +154,8 @@ Readability.prototype = {
+@@ -154,7 +154,7 @@ Readability.prototype = {
  
    ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
  
 -  PRESENTATIONAL_ATTRIBUTES: [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "style", "valign", "vspace" ],
-+  /** wv-marker: 程序中会移除这个数组里面的节点属性，这不是我想要的 */
-+  PRESENTATIONAL_ATTRIBUTES: [],
++  PRESENTATIONAL_ATTRIBUTES:  [ "align", "background", "bgcolor", "border", "cellpadding", "cellspacing", "frame", "hspace", "rules", "style", "valign", "vspace" ],
  
    DEPRECATED_SIZE_ATTRIBUTE_ELEMS: [ "TABLE", "TH", "TD", "HR", "PRE" ],
  
-@@ -191,7 +192,8 @@ Readability.prototype = {
+@@ -191,7 +191,8 @@ Readability.prototype = {
      // Readability cannot open relative uris so we convert them to absolute uris.
      this._fixRelativeUris(articleContent);
  
@@ -22,7 +39,7 @@ index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..f559378758a07cb4945b1263c4fd7968
  
      if (!this._keepClasses) {
        // Remove classes.
-@@ -544,7 +546,8 @@ Readability.prototype = {
+@@ -544,7 +545,8 @@ Readability.prototype = {
      var doc = this._doc;
  
      // Remove all style tags in head
@@ -32,17 +49,17 @@ index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..f559378758a07cb4945b1263c4fd7968
  
      if (doc.body) {
        this._replaceBrs(doc.body);
-@@ -667,7 +670,8 @@ Readability.prototype = {
+@@ -667,7 +669,8 @@ Readability.prototype = {
     * @return void
     **/
    _prepArticle: function(articleContent) {
 -    this._cleanStyles(articleContent);
-+    /** wv-marker: 保留style属性 */
++    /** wv-marker: 保留style等标签属性 */
 +    // this._cleanStyles(articleContent);
  
      // Check for data tables before we continue, to avoid removing items in
      // those tables, which will often be isolated even though they're
-@@ -966,7 +970,8 @@ Readability.prototype = {
+@@ -966,7 +969,8 @@ Readability.prototype = {
          }
  
          // Turn all divs that don't have children block level elements into p's
@@ -52,3 +69,6 @@ index b745aa01d8ea23e55c5c309c29262f6fa0a74a01..f559378758a07cb4945b1263c4fd7968
            // Put phrasing content into paragraphs.
            var p = null;
            var childNode = node.firstChild;
+diff --git a/SECURITY.md b/SECURITY.md
+deleted file mode 100644
+index d68d74d0c329768a400ccb9b20751a541c176cf5..0000000000000000000000000000000000000000
