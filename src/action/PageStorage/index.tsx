@@ -85,7 +85,7 @@ export const PageStorage = memo(() => {
           {pageList.map(item => {
             const { title, href, storageSize } = item
             return (
-              <li className='flex'>
+              <li className='flex items-center mt-2'>
                 <a href={href} target="_blank" className='max-w-[300px] line-clamp-1'>
                   {title}:
                 </a>

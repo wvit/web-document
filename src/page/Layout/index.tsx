@@ -11,7 +11,7 @@ export const Layout = memo(() => {
 
   /** 获取当前已保存的页面列表 */
   const getPageList = async () => {
-    const { list } = await storeHandles.pages.getAll()
+    const { list } = await storeHandles.pages.getAll()    
     setPageList(list)
   }
 
@@ -25,10 +25,10 @@ export const Layout = memo(() => {
 
       <div className="flex flex-1 h-[0]">
         <ul
-          className="p-2 flex flex-wrap self-start h-[100%] overflow-x-hidden overflow-y-auto"
+          className="p-2 flex flex-wrap h-[100%] overflow-x-hidden overflow-y-auto"
           style={{
             width: activePageData ? '300px' : '100%',
-            height: activePageData ? '100%' : 'auto',
+            flexDirection: activePageData ? 'column' : 'row',
           }}
         >
           {pageList.map(item => {
@@ -37,7 +37,7 @@ export const Layout = memo(() => {
             return (
               <li
                 key={href}
-                className="card-item m-2 cursor-pointer w-[32%] max-w-[100%] h-[100px]"
+                className="card-item m-2 self-start cursor-pointer w-[32%] max-w-[100%] h-[100px]"
                 style={{
                   width: activePageData ? '95%' : '300px',
                   border:
