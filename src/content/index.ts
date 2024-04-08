@@ -42,13 +42,18 @@ Message.content.on(
     }).parse()!
     const htmlContent = `
       <div>
-        <h2 style="${styleToString({ 'font-size': '24px' })}" >
+        <h1 style="${styleToString({
+          'font-size': '24px',
+        })}" >
           ${pageData.title}
-        </h2>
+        </h1>
         ${content}
       </div>
       <style>
-        body { ${styleToString({ padding: '12px', background: '#fff' })} }
+        body{${styleToString({
+          padding: '12px',
+          background: '#fff',
+        })}}
       </style>
       `
 

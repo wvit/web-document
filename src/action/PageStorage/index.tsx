@@ -1,21 +1,15 @@
 import { memo, useState, useEffect } from 'react'
 import Button from 'antd/es/button'
 import message from 'antd/es/message'
-import theme from 'antd/es/theme'
-import { Message, Action } from '@/utils'
+import { Message, Action, getResource } from '@/utils'
 import { storeHandles } from '@/utils/idb'
+
+const textEncoder = new TextEncoder()
 
 /** 页面存储器 */
 export const PageStorage = memo(() => {
-  const [pageList, setPageList] = useState<any[]>([])
   const [saveLoading, setSaveLoading] = useState(false)
-  const { token } = theme.useToken()
-
-  /** 获取当前已保存的页面列表 */
-  const getPageList = async () => {
-    const { list } = await storeHandles.pages.getAll()
-    setPageList(list)
-  }
+  const [pageList, setPageList] = useState<any[]>([])
 
   /** 保存当前页面 */
   const saveCurrentPage = async (action: Action.Content) => {
@@ -28,18 +22,16 @@ export const PageStorage = memo(() => {
     getPageList()
   }
 
-  /** 渲染保存页面按钮 */
-  const renderSaveBtn = (action: Action.Content, btnName) => {
-    return (
-      <Button
-        loading={saveLoading}
-        type="primary"
-        className="mr-2"
-        onClick={() => saveCurrentPage(action)}
-      >
-        {btnName}
-      </Button>
-    )
+  /** 获取文档页面列表 */
+  const getPageList = async () => {
+    const { list } = await storeHandles.pages.getAll()
+
+    list.forEach(item => {
+      const dataEncode = textEncoder.encode(JSON.stringify(item))
+      item.storageSize = (dataEncode.length / 1024 / 1024).toFixed(2)
+    })
+
+    setPageList(list)
   }
 
   useEffect(() => {
@@ -54,25 +46,50 @@ export const PageStorage = memo(() => {
           boxShadow: '1px 1px 6px 1px rgba(0, 0, 0, 0.05)',
         }}
       >
-        {renderSaveBtn(Action.Content.GetPage, '保存当前页面')}
-        {renderSaveBtn(Action.Content.GetArticle, '仅保存当前页面文章')}
+        <Button
+          loading={saveLoading}
+          type="primary"
+          className="mr-2"
+          onClick={() => {
+            saveCurrentPage(Action.Content.GetPage)
+          }}
+        >
+          保存当前页面
+        </Button>
+        <Button
+          loading={saveLoading}
+          type="primary"
+          className="mr-2"
+          onClick={() => {
+            saveCurrentPage(Action.Content.GetArticle)
+          }}
+        >
+          仅保存当前页面文章
+        </Button>
+        <Button
+          type="primary"
+          className="mr-2"
+          onClick={() => {
+            chrome.tabs.create({
+              url: getResource('/page/index.html'),
+            })
+          }}
+        >
+          打开文档主页
+        </Button>
       </div>
-      <div className="w-[100%] h-[100%]">
-        <ul className=" w-[300px] p-3">
+
+      <div className="p-2">
+        <h4 className=' text-base'>已保存文档占用空间大小</h4>
+        <ul className='mt-2'>
           {pageList.map(item => {
-            const { href, title } = item
+            const { title, href, storageSize } = item
             return (
-              <li className="card-item mt-2 cursor-pointer">
-                <h3 title={title} className="line-clamp-2">
-                  {title}
-                </h3>
-                <a
-                  title={href}
-                  className="line-clamp-2 mt-1"
-                  style={{ color: token.colorLink }}
-                >
-                  {href}
+              <li className='flex'>
+                <a href={href} target="_blank" className='max-w-[300px] line-clamp-1'>
+                  {title}:
                 </a>
+                <span className="ml-2">{storageSize} MB</span>
               </li>
             )
           })}

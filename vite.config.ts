@@ -20,6 +20,7 @@ export default defineConfig({
       input: {
         'background/index': 'src/background/index.ts',
         'action/index.html': 'src/action/index.html',
+        'page/index.html': 'src/page/index.html',
       },
       output: {
         entryFileNames: `[name].js`,

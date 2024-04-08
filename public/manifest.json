@@ -38,10 +38,10 @@
     "webRequest",
     "webNavigation"
   ],
-  "host_permissions": ["*://*/*"],
+  "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {
-      "resources": ["*.png", "content/*.js"],
+      "resources": ["*.png", "page/index.html"],
       "matches": ["*://*/*"]
     }
   ]
