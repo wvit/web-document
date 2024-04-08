@@ -22,6 +22,9 @@ dependencies:
   antd:
     specifier: ^5.14.1
     version: 5.16.0(react-dom@18.2.0)(react@18.2.0)
+  flexsearch:
+    specifier: ^0.7.43
+    version: 0.7.43
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -1344,6 +1347,10 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
     dev: true
+
+  /flexsearch@0.7.43:
+    resolution: {integrity: sha512-c5o/+Um8aqCSOXGcZoqZOm+NqtVwNsvVpWv6lfmSclU954O3wvQKxxK8zj74fPaSJbXpSLTs4PRhh+wnoCXnKg==}
+    dev: false
 
   /foreground-child@3.1.1:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}

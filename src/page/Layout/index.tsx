@@ -1,18 +1,59 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useRef } from 'react'
 import theme from 'antd/es/theme'
-import { Header } from '../Header'
+import flexSearch from 'flexsearch'
 import { storeHandles } from '@/utils/idb'
+import { Header } from '../Header'
 
 /** 文档主页布局 */
 export const Layout = memo(() => {
   const [pageList, setPageList] = useState<any[]>([])
   const [activePageData, setActivePageData] = useState<any>(null)
+  const documentRef = useRef({} as flexSearch.Document<any, string[]>)
   const { token } = theme.useToken()
 
   /** 获取当前已保存的页面列表 */
   const getPageList = async () => {
-    const { list } = await storeHandles.pages.getAll()    
+    const { list } = await storeHandles.pages.getAll()
+
+    documentRef.current = new flexSearch.Document({
+      // encode: str => str.replace(/[\x00-\x7F]/g, '').split(''),
+      document: {
+        id: 'id',
+        index: ['title', 'textContent', 'href'],
+        store: ['title', 'textContent', 'href'],
+      },
+    })
+    list.forEach(item => {
+      documentRef.current.add(item)
+    })
+
     setPageList(list)
+  }
+
+  /** 搜索文档内容 */
+  const searchDocument = keywords => {
+    const result = documentRef.current.search({
+      query: keywords,
+    })
+    // const result = documentRef.current.search(keywords, {
+    //   enrich: true,
+    // })
+    // const result = documentRef.current.search([
+    //   {
+    //     field: 'title',
+    //     query: keywords,
+    //   },
+    //   {
+    //     field: 'textContent',
+    //     query: keywords,
+    //   },
+    //   {
+    //     field: 'href',
+    //     query: keywords,
+    //   },
+    // ] as any)
+
+    console.log(11111, result)
   }
 
   useEffect(() => {
@@ -21,11 +62,14 @@ export const Layout = memo(() => {
 
   return (
     <div className="w-[100vw] h-[100vh] bg-[#f0f0f0] flex flex-col">
-      <Header />
+      <Header
+        onLogoClick={() => setActivePageData(null)}
+        onSearch={searchDocument}
+      />
 
       <div className="flex flex-1 h-[0]">
         <ul
-          className="p-2 flex flex-wrap h-[100%] overflow-x-hidden overflow-y-auto"
+          className="p-1 flex flex-wrap h-[100%] overflow-x-hidden overflow-y-auto"
           style={{
             width: activePageData ? '300px' : '100%',
             flexDirection: activePageData ? 'column' : 'row',
@@ -49,11 +93,11 @@ export const Layout = memo(() => {
                 <h3
                   title={title}
                   className="line-clamp-2"
-                  onClick={() =>
+                  onClick={() => {
                     setActivePageData(
                       activePageData?.href === href ? null : item
                     )
-                  }
+                  }}
                 >
                   {title}
                 </h3>
