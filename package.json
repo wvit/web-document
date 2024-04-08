@@ -9,6 +9,7 @@
     "build": "vite build --config content.vite.ts  && vite build",
     "build:content": "vite build --config content.vite.ts --watch",
     "build:watch": "vite build --watch",
+    "build:entry": "entry=newtab,action npm run build:watch",
     "build:zip": "npm run build && node zip.js"
   },
   "dependencies": {
