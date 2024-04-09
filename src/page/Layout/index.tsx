@@ -11,6 +11,7 @@ const documentFields = { title: '标题', textContent: '内容', href: '链接' 
 export const Layout = memo(() => {
   const [pageList, setPageList] = useState<any[]>([])
   const [searchResults, setSearchResults] = useState<any[]>([])
+  const [searchKeywords, setSearchKeywords] = useState<string[]>([])
   const [activePageData, setActivePageData] = useState<any>(null)
   const documentRef = useRef({} as flexSearch.Document<any, string[]>)
 
@@ -54,15 +55,15 @@ export const Layout = memo(() => {
     const fillResults = Array.from(new Set(resultIds.flat()))
       .map(id => {
         const searchData = getSearchData(id)
-        const searchKeywords = Object.keys(searchData)
-        const fieldCount = searchKeywords.reduce((prevCount, keyword) => {
+        const keywords = Object.keys(searchData)
+        const fieldCount = keywords.reduce((prevCount, keyword) => {
           return prevCount + searchData[keyword].length
         }, 0)
         const findItem = pageList.find(item => item.id === id)
 
         return {
           ...findItem,
-          searchSort: searchKeywords.length * fieldCount,
+          searchSort: keywords.length * fieldCount,
           searchResult: searchData,
         }
       })
@@ -70,25 +71,31 @@ export const Layout = memo(() => {
 
     return fillResults
   }
-  
+
   /** 搜索文档内容 */
-  const searchDocument = (keywords: string[]) => {
+  const searchDocument = () => {
     /** 被搜索关键字命中的数据id */
     const resultIds: string[][] = []
+
     /** 生成数据结构：{ [keyword]: { [field]: ids[] } } */
-    const searchResultMap = keywords.reduce((prevSearchResult, keyword) => {
-      const results = documentRef.current.search({
-        query: keyword,
-      }) as { field: string; result: string[] }[]
-      const resultMap = results.reduce((prevFieldResult, fieldResult) => {
-        const { field, result } = fieldResult
+    const searchResultMap = searchKeywords.reduce(
+      (prevSearchResult, keyword) => {
+        const results = documentRef.current.search({
+          query: keyword,
+        }) as { field: string; result: string[] }[]
 
-        resultIds.push(result)
-        return { ...prevFieldResult, [field]: result }
-      }, {}) as Record<string, string[]>
+        const resultMap = results.reduce((prevFieldResult, fieldResult) => {
+          const { field, result } = fieldResult
 
-      return { ...prevSearchResult, [keyword]: resultMap }
-    }, {}) as Record<string, Record<string, string[]>>
+          resultIds.push(result)
+          return { ...prevFieldResult, [field]: result }
+        }, {}) as Record<string, string[]>
+
+        return { ...prevSearchResult, [keyword]: resultMap }
+      },
+      {}
+    ) as Record<string, Record<string, string[]>>
+
     const results = transformSearchResult(searchResultMap, resultIds)
 
     setSearchResults(results)
@@ -98,16 +105,20 @@ export const Layout = memo(() => {
     getPageList()
   }, [])
 
+  useEffect(() => {
+    if (searchKeywords.length) searchDocument()
+  }, [searchKeywords])
+
   return (
     <div className="w-[100vw] h-[100vh] bg-[#f0f0f0] flex flex-col">
       <Header
         onLogoClick={() => setActivePageData(null)}
-        onSearch={searchDocument}
+        onSearch={setSearchKeywords}
       />
 
       <div className="flex flex-1 h-[0]">
         <DocumentList
-          documents={searchResults.length ? searchResults : pageList}
+          documents={searchKeywords.length ? searchResults : pageList}
           activeData={activePageData}
           onSelect={data => setActivePageData(data)}
         />
