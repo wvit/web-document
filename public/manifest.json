@@ -29,15 +29,7 @@
     "service_worker": "background/index.js",
     "type": "module"
   },
-  "permissions": [
-    "scripting",
-    "tabs",
-    "activeTab",
-    "storage",
-    "proxy",
-    "webRequest",
-    "webNavigation"
-  ],
+  "permissions": ["scripting", "tabs", "activeTab", "storage"],
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {

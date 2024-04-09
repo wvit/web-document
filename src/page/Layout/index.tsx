@@ -4,6 +4,13 @@ import flexSearch from 'flexsearch'
 import { storeHandles } from '@/utils/idb'
 import { Header } from '../Header'
 
+/** 文档索引字段 */
+const documentFields = [
+  { label: '标题', value: 'title' },
+  { label: '内容', value: 'textContent' },
+  { label: '链接', value: 'href' },
+]
+
 /** 文档主页布局 */
 export const Layout = memo(() => {
   const [pageList, setPageList] = useState<any[]>([])
@@ -17,11 +24,7 @@ export const Layout = memo(() => {
 
     documentRef.current = new flexSearch.Document({
       // encode: str => str.replace(/[\x00-\x7F]/g, '').split(''),
-      document: {
-        id: 'id',
-        index: ['title', 'textContent', 'href'],
-        store: ['title', 'textContent', 'href'],
-      },
+      document: { id: 'id', index: documentFields.map(item => item.value) },
     })
     list.forEach(item => {
       documentRef.current.add(item)
@@ -30,30 +33,85 @@ export const Layout = memo(() => {
     setPageList(list)
   }
 
-  /** 搜索文档内容 */
-  const searchDocument = keywords => {
-    const result = documentRef.current.search({
-      query: keywords,
-    })
-    // const result = documentRef.current.search(keywords, {
-    //   enrich: true,
-    // })
-    // const result = documentRef.current.search([
-    //   {
-    //     field: 'title',
-    //     query: keywords,
-    //   },
-    //   {
-    //     field: 'textContent',
-    //     query: keywords,
-    //   },
-    //   {
-    //     field: 'href',
-    //     query: keywords,
-    //   },
-    // ] as any)
+  /** 转换搜索结果数据结构，按字段进行分类 */
+  const transformSearchResults = searchResults => {
+    /** 被搜索关键字命中的数据id */
+    const resultIds: string[][] = []
+    /** 生成数据结构：{ [field]: { [keyword]: ids[] } } */
+    const fieldResultMap = documentFields.reduce((prevFeild, field) => {
+      /** 生成数据结构：{ [keyword]: ids[] } */
+      const keywordResult = searchResults.reduce(
+        (prevKeywordResult, keywordResult) => {
+          const { keyword, results } = keywordResult
+          const ids =
+            results.find(item => item.field === field.value)?.result || []
 
-    console.log(11111, result)
+          resultIds.push(ids)
+          return { ...prevKeywordResult, [keyword]: ids }
+        },
+        {} 
+      ) as Record<string, string[]>
+
+      return { ...prevFeild, [field.value]: keywordResult }
+    }, {}) as Record<string, Record<string, string[]>>
+
+    return {
+      fieldResultMap,
+      resultIds: Array.from(new Set(resultIds.flat())),
+    }
+  }
+
+  /** 对转换后的搜索结果数据进行排序等处理 */
+  const sortResultMap = resultData => {
+    const { fieldResultMap, resultIds } = resultData
+    const getSearchData = id => {
+      const searchData = {}
+
+      Object.keys(fieldResultMap).forEach(field => {
+        const fieldMap = fieldResultMap[field]
+
+        Object.keys(fieldMap).forEach(keyword => {
+          if (fieldMap[keyword].includes(id)) {
+            searchData[field] = [...(searchData[field] || []), keyword]
+          }
+        })
+      })
+
+      return searchData as Record<string, string[]>
+    }
+    const fillResults = resultIds
+      .map(id => {
+        const searchData = getSearchData(id)
+        const searchFields = Object.keys(searchData)
+        const keywordCount = searchFields.reduce((prevCount, field) => {
+          return prevCount + searchData[field].length
+        }, 0)
+        const findItem = pageList.find(item => item.id === id)
+
+        return {
+          ...findItem,
+          searchSort: searchFields.length * keywordCount,
+          searchResult: searchData,
+        }
+      })
+      .sort((a, b) => b.searchSort - a.searchSort)
+
+    return fillResults
+  }
+
+  /** 搜索文档内容 */
+  const searchDocument = (keywords: string[]) => {
+    const searchResults = keywords.map(keyword => {
+      const results = documentRef.current.search({
+        query: keyword,
+      }) as { field: string; result: string[] }[]
+
+      return { keyword, results }
+    })
+    const resultData = transformSearchResults(searchResults)
+    const sortResults = sortResultMap(resultData)
+
+    console.log(11111,searchResults, resultData)
   }
 
   useEffect(() => {
@@ -69,10 +127,9 @@ export const Layout = memo(() => {
 
       <div className="flex flex-1 h-[0]">
         <ul
-          className="p-1 flex flex-wrap h-[100%] overflow-x-hidden overflow-y-auto"
+          className="p-1 flex flex-wrap flex-row max-h-[100%] h-fit overflow-x-hidden overflow-y-auto"
           style={{
             width: activePageData ? '300px' : '100%',
-            flexDirection: activePageData ? 'column' : 'row',
           }}
         >
           {pageList.map(item => {
@@ -81,7 +138,7 @@ export const Layout = memo(() => {
             return (
               <li
                 key={href}
-                className="card-item m-2 self-start cursor-pointer w-[32%] max-w-[100%] h-[100px]"
+                className="card-item m-2 cursor-pointer max-w-[100%] h-[100px]"
                 style={{
                   width: activePageData ? '95%' : '300px',
                   border:
@@ -105,8 +162,8 @@ export const Layout = memo(() => {
                   title={href}
                   href={href}
                   target="_blank"
-                  className="line-clamp-2 mt-1 break-words"
-                  style={{ color: token.colorLink }}
+                  className="line-clamp-2 mt-1"
+                  style={{ color: token.colorLink, overflowWrap: 'anywhere' }}
                 >
                   {href}
                 </a>
