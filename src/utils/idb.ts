@@ -4,7 +4,8 @@ import { Handle, IDB } from '@vorker/idb'
 const db = new IDB({
   name: 'web-document',
   storeNames: ['pages'] as const,
+  objectNames: ['globalConfig'] as const,
 })
 
 /** 生成数据表的操作方法 */
-export const { storeHandles } = new Handle({ db })
+export const { storeHandles, objectHandles } = new Handle({ db })
