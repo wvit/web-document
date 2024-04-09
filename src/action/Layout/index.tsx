@@ -6,8 +6,8 @@ import { storeHandles } from '@/utils/idb'
 
 const textEncoder = new TextEncoder()
 
-/** 页面存储器 */
-export const PageStorage = memo(() => {
+/** 页面布局 */
+export const Layout = memo(() => {
   const [saveLoading, setSaveLoading] = useState(false)
   const [pageList, setPageList] = useState<any[]>([])
 
