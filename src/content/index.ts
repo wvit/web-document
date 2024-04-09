@@ -21,14 +21,20 @@ const getPageData = async () => {
   })
   const htmlDocument = document.implementation.createHTMLDocument('')
   htmlDocument.write(content)
-  const textContent = Dom.query('body', htmlDocument).textContent?.replace(
-    /\s+/g,
-    ' '
-  )
+  const body = Dom.query('body', htmlDocument.cloneNode(true) as Document)
+
+  Dom.queryAll('style', body).forEach(item => item.remove())
+  Dom.queryAll('link', body).forEach(item => item.remove())
+  Dom.queryAll('script', body).forEach(item => item.remove())
 
   return {
     htmlDocument,
-    pageData: { title, textContent, htmlContent: content, href: location.href },
+    pageData: {
+      title,
+      textContent: body.textContent?.replace(/\s+/g, ' '),
+      htmlContent: content,
+      href: location.href,
+    },
   }
 }
 
