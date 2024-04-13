@@ -14,8 +14,8 @@ dependencies:
     specifier: 0.5.0
     version: 0.5.0(patch_hash=p6ycesgw332adpes4yhty5crcm)
   '@vorker/idb':
-    specifier: 0.0.4
-    version: 0.0.4
+    specifier: 0.0.7
+    version: 0.0.7
   '@vorker/utils':
     specifier: 0.0.6
     version: 0.0.6
@@ -962,20 +962,20 @@ packages:
       - supports-color
     dev: true
 
-  /@vorker/idb@0.0.4:
-    resolution: {integrity: sha512-c9V1hEweM4W1YQzzBe/hJq5hqhEtxlewMj7XDtxzbhxPjXhVm6GHrc67ZsT5NA4SEoIKkkyZMIzr+cpaTR0wLw==}
+  /@vorker/idb@0.0.7:
+    resolution: {integrity: sha512-OEvdCLPJOmh/ErS0wFPYYABn4Lfv1t5Wv4q7RsKrZfUFbegmQicGk7M5Pdqao9eUbw85VR46/H1ZR4rMNdhlTw==}
     dependencies:
-      '@vorker/utils': 0.0.4
-    dev: false
-
-  /@vorker/utils@0.0.4:
-    resolution: {integrity: sha512-1mNf/TXgTiUfFZNvkAV2Ien2h6Zz0vnoBEBvuuaIkP/SguXWHq34/TOGMLTiwJOJJNvvBgp8du2i+9pA5/Q4Hg==}
-    dependencies:
-      csstype: 3.1.3
+      '@vorker/utils': 0.0.9
     dev: false
 
   /@vorker/utils@0.0.6:
     resolution: {integrity: sha512-TiY6aqEmxAEZr7m09g9vbecK+RrdwLELQEgRe+PS31+y/1lXixZhZ7GtHJwpDjiFBkID8WIkQH1rq7yQfteVxA==}
+    dependencies:
+      csstype: 3.1.3
+    dev: false
+
+  /@vorker/utils@0.0.9:
+    resolution: {integrity: sha512-343k7ZLg6MniFOFOOqxpyjtb4e/awPC4Sg/q9QnLG2xgn6HvXnGyKWVSvgmErnKNK5fNZBcYf7xasIkzt3bXBA==}
     dependencies:
       csstype: 3.1.3
     dev: false

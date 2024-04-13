@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@mozilla/readability": "0.5.0",
-    "@vorker/idb": "0.0.4",
+    "@vorker/idb": "0.0.7",
     "@vorker/utils": "0.0.6",
     "antd": "^5.14.1",
     "flexsearch": "^0.7.43",
