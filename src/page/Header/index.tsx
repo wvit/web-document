@@ -47,7 +47,8 @@ export const Header = memo((props: HeaderProps) => {
         <Select
           size="large"
           mode="tags"
-          className="w-[500px] ml-20"
+          className="min-w-[500px] max-w-[700px] ml-20"
+          maxTagCount={5}
           placeholder="请输入需要查找的文档标题、内容、网址"
           onChange={searchKeywords}
           options={searchOptions.map(item => ({ label: item, value: item }))}

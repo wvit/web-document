@@ -15,6 +15,9 @@ export const Layout = memo(() => {
   const [activePageData, setActivePageData] = useState<any>(null)
   const documentRef = useRef({} as flexSearch.Document<any, string[]>)
 
+  /** 是否为搜索状态 */
+  const searchStatus = !!searchKeywords.length
+
   /** 获取当前已保存的页面列表 */
   const getPageList = async () => {
     const { list } = await storeHandles.pages.getAll()
@@ -106,7 +109,7 @@ export const Layout = memo(() => {
   }, [])
 
   useEffect(() => {
-    if (searchKeywords.length) searchDocument()
+    if (searchStatus) searchDocument()
   }, [searchKeywords])
 
   return (
@@ -118,7 +121,8 @@ export const Layout = memo(() => {
 
       <div className="flex flex-1 h-[0]">
         <DocumentList
-          documents={searchKeywords.length ? searchResults : pageList}
+          searchStatus={searchStatus}
+          documents={searchStatus ? searchResults : pageList}
           activeData={activePageData}
           onSelect={data => setActivePageData(data)}
         />

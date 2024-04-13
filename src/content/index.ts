@@ -34,6 +34,7 @@ const getPageData = async () => {
       textContent: body.textContent?.replace(/\s+/g, ' '),
       htmlContent: content,
       href: location.href,
+      host: location.host,
     },
   }
 }
