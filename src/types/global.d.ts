@@ -4,7 +4,7 @@ declare global {
   /** 将网页保存为单文件方法 https://github.com/gildas-lormeau/SingleFile */
   const singlefile: {
     /** 此方法描述参数 https://github.com/gildas-lormeau/SingleFile/wiki/How-to-integrate-SingleFile-library-code-in-%22custom%22-environments%3F */
-    init: (options?: { fetch: typeof fetch }) => void
+    init: (options?: { fetch: (url, options) => Promise<any> }) => void
 
     /** 此方法参数参考 https://github.com/gildas-lormeau/SingleFile/blob/master/src/core/bg/config.js */
     getPageData: (

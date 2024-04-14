@@ -7,13 +7,16 @@ type MessageType<T extends Action.Background | Action.Content | Action.Window> =
 
 /** 区分 chrome.runtime.message 的 action 操作类型*/
 export namespace Action {
-  export enum Background {}
-
   export enum Content {
     /** 获取当前选项卡的页面内容 */
     GetPage = 'getPage',
     /** 获取文章 */
-    GetArticle = 'GetArticle'
+    GetArticle = 'GetArticle',
+  }
+
+  export enum Background {
+    /** 在后台中操作IDB */
+    HandleIDB = 'handleIDB',
   }
 
   export enum Window {}
@@ -23,27 +26,30 @@ export namespace Action {
 export const Message = {
   content: {
     /** 向指定 newtab 页面发送 message */
-    send: (tabId: number, message: MessageType<Action.Content>) => {
-      return new Promise<any>(resolve => {
-        chrome.tabs.sendMessage(tabId, message, resolve)
-      })
+    send: (tabId: number, action: Action.Content, message?: any) => {
+      return chrome.tabs.sendMessage(tabId, { action, ...message })
     },
 
     /** 向当前选中页面的 content 发送 message */
-    activeSend: (message: MessageType<Action.Content>) => {
-      return new Promise<any>(resolve => {
-        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-          if (!tabs[0]?.id) return
-          chrome.tabs.sendMessage(tabs[0].id, message, resolve)
-        })
-      })
+    activeSend: async (action: Action.Content, message?: any) => {
+      const { id } =
+        (
+          await chrome.tabs.query({
+            active: true,
+            currentWindow: true,
+          })
+        )[0] || {}
+
+      if (id) {
+        return chrome.tabs.sendMessage(id, { action, ...message })
+      }
     },
 
     /** 监听向 content 发送的 message 事件 */
     on: (
       action: Action.Content,
       callback: (
-        message: MessageType<Action.Content>,
+        message: any,
         sender: any,
         sendResponse: (data?: any) => void
       ) => void
@@ -62,17 +68,15 @@ export const Message = {
 
   background: {
     /** 向 background 发送消息 */
-    send: (message: MessageType<Action.Background>) => {
-      return new Promise<any>(resolve => {
-        chrome.runtime.sendMessage(message, resolve)
-      })
+    send: (action: Action.Background, message?: any) => {
+      return chrome.runtime.sendMessage({ action, ...message })
     },
 
     /** 监听向 background 发送的 message 事件 */
     on: (
       action: Action.Background,
       callback: (
-        message: MessageType<Action.Background>,
+        message: any,
         sender: any,
         sendResponse: (data?: any) => void
       ) => void
@@ -90,16 +94,13 @@ export const Message = {
 
   window: {
     /** 向 window 之间发送信息 */
-    send: (target: Window, message: MessageType<Action.Window>) => {
-      target.postMessage(message, '*')
+    send: (target: Window, action: Action.Window, message?: any) => {
+      target.postMessage({ action, ...message }, '*')
     },
 
     /** 监听 window 之间的通信 */
-    on: <T extends MessageType<Action.Window>>(
-      action: Action.Window,
-      callback: (event: MessageEvent<T>) => void
-    ) => {
-      window.addEventListener('message', (e: MessageEvent<T>) => {
+    on: (action: Action.Window, callback: (event: MessageEvent) => void) => {
+      window.addEventListener('message', (e: MessageEvent) => {
         if (action === e.data.action) {
           callback?.(e)
         }

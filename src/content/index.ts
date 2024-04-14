@@ -1,9 +1,44 @@
 import { Readability } from '@mozilla/readability'
 import { Dom, styleToString, Message, Action } from '@/utils'
 
+const { href, host } = location
+const encoder = new TextEncoder()
+
 singlefile.init({
   fetch: async (url, options) => {
-    console.log(11111, url)
+    const type = url.split('.').pop()
+    const fetchData = async () => {
+      const res = await fetch(url, options)
+      const content = await res.text()
+
+      Message.background.send(Action.Background.HandleIDB, {
+        storeName: 'resource',
+        handleType: 'create',
+        params: { id: url, type, content, host },
+      })
+    }
+
+    if (type === 'css') {
+      const resourceDetail = await Message.background.send(
+        Action.Background.HandleIDB,
+        {
+          storeName: 'resource',
+          handleType: 'detail',
+          params: url,
+        }
+      )
+
+      /** 如果数据中已经有当前资源数据，就不等待请求返回 */
+      resourceDetail ? await fetchData() : fetchData()
+
+      return {
+        status: 200,
+        arrayBuffer: async () => {
+          return encoder.encode(`web-document-resource-url=${url}`).buffer
+        },
+      }
+    }
+
     return fetch(url, options)
   },
 })
@@ -12,7 +47,7 @@ singlefile.init({
 const getPageData = async () => {
   const singlefileData = await singlefile.getPageData({
     removeHiddenElements: true,
-    removeUnusedStyles: true,
+    // removeUnusedStyles: true,
     removeUnusedFonts: true,
     removeFrames: true,
     removeImports: true,
@@ -38,10 +73,10 @@ const getPageData = async () => {
     htmlDocument,
     pageData: {
       title,
+      href,
+      host,
       textContent: body.textContent?.replace(/\s+/g, ' '),
       htmlContent: content,
-      href: location.href,
-      host: location.host,
     },
   }
 }

@@ -12,7 +12,7 @@ export const Layout = memo(() => {
   /** 保存当前页面 */
   const saveCurrentPage = async (action: Action.Content) => {
     setSaveLoading(true)
-    const msgRes = await Message.content.activeSend({ action })
+    const msgRes = await Message.content.activeSend(action)
     setSaveLoading(false)
 
     await storeHandles.document.create({ id: msgRes.href, ...msgRes })
