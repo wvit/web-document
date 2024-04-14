@@ -3,7 +3,7 @@ import { Handle, IDB } from '@vorker/idb'
 /** 实例化数据库 */
 const db = new IDB({
   name: 'web-document',
-  storeNames: ['pages'] as const,
+  storeNames: ['document', 'resource'] as const,
   objectNames: ['globalConfig'] as const,
 })
 

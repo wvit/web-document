@@ -23,7 +23,7 @@ export const DocumentManage = memo(() => {
 
   /** 获取文档页面列表 */
   const getDocumentList = async () => {
-    const { list } = await storeHandles.pages.getAll()
+    const { list } = await storeHandles.document.getAll()
 
     list.forEach(item => {
       const dataEncode = textEncoder.encode(JSON.stringify(item))
@@ -34,7 +34,7 @@ export const DocumentManage = memo(() => {
 
   /** 删除已选文档数据 */
   const deleteDocuments = async () => {
-    await storeHandles.pages.batchDelete(selectIds)
+    await storeHandles.document.batchDelete(selectIds)
     setSelectIds([])
     message.success('删除成功')
   }
@@ -46,7 +46,7 @@ export const DocumentManage = memo(() => {
 
   useEffect(() => {
     getDocumentList()
-    storeHandles.pages.onChange(getDocumentList)
+    storeHandles.document.onChange(getDocumentList)
   }, [])
 
   return (

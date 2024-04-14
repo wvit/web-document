@@ -20,7 +20,7 @@ export const Layout = memo(() => {
 
   /** 获取当前已保存的页面列表 */
   const getPageList = async () => {
-    const { list } = await storeHandles.pages.getAll()
+    const { list } = await storeHandles.document.getAll()
 
     documentRef.current = new flexSearch.Document({
       // encode: str => str.replace(/[\x00-\x7F]/g, '').split(''),

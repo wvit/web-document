@@ -15,7 +15,7 @@ export const Layout = memo(() => {
     const msgRes = await Message.content.activeSend({ action })
     setSaveLoading(false)
 
-    await storeHandles.pages.create({ id: msgRes.href, ...msgRes })
+    await storeHandles.document.create({ id: msgRes.href, ...msgRes })
     message.success('保存成功')
   }
 

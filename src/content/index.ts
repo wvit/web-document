@@ -1,24 +1,31 @@
 import { Readability } from '@mozilla/readability'
 import { Dom, styleToString, Message, Action } from '@/utils'
 
-singlefile.init(fetch)
+singlefile.init({
+  fetch: async (url, options) => {
+    console.log(11111, url)
+    return fetch(url, options)
+  },
+})
 
 /** 获取当前页面信息 */
 const getPageData = async () => {
-  const { content, title } = await singlefile.getPageData({
+  const singlefileData = await singlefile.getPageData({
     removeHiddenElements: true,
     removeUnusedStyles: true,
     removeUnusedFonts: true,
+    removeFrames: true,
     removeImports: true,
+    removeAlternativeFonts: true,
+    removeAlternativeMedias: true,
+    removeAlternativeImages: true,
     blockScripts: true,
     blockAudios: true,
     blockVideos: true,
     compressHTML: true,
-    removeAlternativeFonts: true,
-    removeAlternativeMedias: true,
-    removeAlternativeImages: true,
     groupDuplicateImages: true,
   })
+  const { content, title } = singlefileData
   const htmlDocument = document.implementation.createHTMLDocument('')
   htmlDocument.write(content)
   const body = Dom.query('body', htmlDocument.cloneNode(true) as Document)
