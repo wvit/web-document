@@ -5,9 +5,7 @@ import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
-import { storeHandles } from '@/utils/idb'
-
-const textEncoder = new TextEncoder()
+import { storeHandles, objectHandles, useDomainList } from '@/utils/idb'
 
 /** 文档管理组件 */
 export const DocumentManage = memo(() => {
@@ -26,20 +24,25 @@ export const DocumentManage = memo(() => {
   const indeterminate =
     selectIds.length > 0 && selectIds.length < documentList.length
 
+  /** 获取列表展示类型 */
+  const getDisplayType = async () => {
+    const { listDisplayType } = await objectHandles.globalConfig.get()
+    setDisplayType(listDisplayType || 'default')
+  }
+
   /** 获取文档页面列表 */
-  const getDocumentList = async () => {
+  const getDocumentData = async () => {
     const { list } = await storeHandles.document.getAll()
-    const domainMap = {}
+    const domainList = await useDomainList(list)
 
-    list.forEach(item => {
-      const { styleLinks, domain } = item
-      // const {  } = domainMap[item] || {}
-      const dataEncode = textEncoder.encode(JSON.stringify(item))
-
-      item.storageSize = (dataEncode.length / 1024 / 1024).toFixed(2)
-      // domainMap[domain] = 
-    })
     setDocumentList(list)
+    setDomainList(domainList)
+  }
+
+  /** 设置列表展示类型 */
+  const setListDisplayType = listDisplayType => {
+    setDisplayType(listDisplayType)
+    objectHandles.globalConfig.set({ listDisplayType })
   }
 
   /** 删除已选文档数据 */
@@ -59,7 +62,8 @@ export const DocumentManage = memo(() => {
     return (
       <ul className="mt-2 flex flex-wrap">
         {list.map(item => {
-          const { id, title, href, storageSize, domain } = item
+          const { id, title, href, contentSize, domain } = item
+          const path = href.split(domain)[1]
 
           return (
             <li key={id} className="card-item flex m-1 w-[252px]">
@@ -67,9 +71,9 @@ export const DocumentManage = memo(() => {
               <div className=" text-xs w-[100%]">
                 <div className="flex justify-between">
                   <span className=" max-w-[75%] break-all line-clamp-1">
-                    {domain}
+                    {displayType === 'default' ? domain : path}
                   </span>
-                  <span className="ml-2">{storageSize} MB</span>
+                  <span className="ml-2">{contentSize} MB</span>
                 </div>
                 <a
                   href={href}
@@ -88,8 +92,9 @@ export const DocumentManage = memo(() => {
   }
 
   useEffect(() => {
-    getDocumentList()
-    storeHandles.document.onChange(getDocumentList)
+    getDocumentData()
+    getDisplayType()
+    storeHandles.document.onChange(getDocumentData)
   }, [])
 
   return (
@@ -125,14 +130,30 @@ export const DocumentManage = memo(() => {
               { label: '默认排列', value: 'default' },
               { label: '按网站排列', value: 'domain' },
             ]}
-            onChange={e => setDisplayType(e.target.value)}
+            onChange={e => setListDisplayType(e.target.value)}
           />
         </div>
       </div>
 
       {documentList.length ? (
         <Checkbox.Group value={selectIds} onChange={setSelectIds}>
-          {renderDocumentList(documentList)}
+          {displayType === 'default'
+            ? renderDocumentList(documentList)
+            : domainList.map(item => {
+                const { domain, styleSize, children } = item
+
+                return (
+                  <div>
+                    <h3 className="pl-1 mt-2 text-base">
+                      {domain}
+                      <span className=" font-normal text-xs ml-2 text-gray-400">
+                        ({styleSize} MB)
+                      </span>
+                    </h3>
+                    {renderDocumentList(children)}
+                  </div>
+                )
+              })}
         </Checkbox.Group>
       ) : (
         <Empty className=" mt-6" />

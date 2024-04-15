@@ -6,23 +6,25 @@ const textEncoder = new TextEncoder()
 /** 获取内容占用磁盘空间大小 */
 const getStorageSize = content => {
   const dataEncode = textEncoder.encode(content)
-  const storageSize = `${(dataEncode.length / 1024 / 1024).toFixed(2)} MB`
+  const storageSize = Number((dataEncode.length / 1024 / 1024).toFixed(2))
   return storageSize
 }
 
 /** 重写 singleFile 的 fetch 资源方法 */
 const useRequest = options => {
   const { styleLinks, domain } = options
+
   return async (url, requestOptions) => {
     const type = url.split('.').pop()
     const fetchData = async () => {
       const res = await fetch(url, requestOptions)
       const content = await res.text()
+      const contentSize = getStorageSize(content)
 
       Message.background.send(Action.Background.HandleIDB, {
         storeName: 'resource',
         handleType: 'create',
-        params: { id: url, type, content, domain },
+        params: { id: url, type, content, domain, contentSize },
       })
     }
 
@@ -51,7 +53,8 @@ const useRequest = options => {
 
 /** 获取当前页面信息 */
 const getPageData = async () => {
-  const { href, host: domain } = location
+  const { href, host } = location
+  const domain = host.startsWith('www.') ? host.slice(4) : host
   /** 存放当前页面需要哪些外链 style */
   const styleLinks: string[] = []
   /** 获取页面数据 */

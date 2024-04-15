@@ -17,8 +17,8 @@ export const Header = memo((props: HeaderProps) => {
 
   /** 获取搜索快捷选项 */
   const getSearchOptions = async () => {
-    const { searchOptions: options } = await objectHandles.globalConfig.get()
-    setSearchOptions(options || [])
+    const { searchOptions } = await objectHandles.globalConfig.get()
+    setSearchOptions(searchOptions || [])
   }
 
   /** 搜索关键字 */

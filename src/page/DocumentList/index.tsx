@@ -1,7 +1,8 @@
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import theme from 'antd/es/theme'
 import Popover from 'antd/es/popover'
 import Empty from 'antd/es/empty'
+import { objectHandles, useDomainList } from '@/utils/idb'
 
 export interface DocumentListProps {
   /** 文档列表 */
@@ -17,7 +18,23 @@ export interface DocumentListProps {
 /** 文档列表 */
 export const DocumentList = memo((props: DocumentListProps) => {
   const { documents, searchStatus, activeData, onSelect } = props
+  const [displayType, setDisplayType] = useState<'default' | 'domain'>(
+    'default'
+  )
+  const [domainList, setDomainList] = useState<any[]>([])
   const { token } = theme.useToken()
+
+  /** 获取文档列表数据 */
+  const getDomainList = async () => {
+    const domainList = await useDomainList(documents)
+    setDomainList(domainList)
+  }
+
+  /** 获取列表展示类型 */
+  const getDisplayType = async () => {
+    const { listDisplayType } = await objectHandles.globalConfig.get()
+    setDisplayType(listDisplayType || 'default')
+  }
 
   /** 渲染文档项头部内容 */
   const renderHeader = searchResult => {
@@ -59,54 +76,85 @@ export const DocumentList = memo((props: DocumentListProps) => {
     )
   }
 
-  return documents.length ? (
-    <ul
-      className="p-1 flex flex-wrap flex-row max-h-[100%] h-fit overflow-x-hidden overflow-y-auto"
-      style={{
-        width: activeData ? '300px' : '100%',
-      }}
-    >
-      {documents?.map(item => {
-        const { href, title, searchResult } = item
+  /** 渲染文档列表 */
+  const renderDocumentList = list => {
+    return (
+      <ul
+        className="p-1 flex flex-wrap flex-row max-h-[100%] h-fit overflow-x-hidden overflow-y-auto"
+        style={{
+          width: activeData ? '300px' : '100%',
+        }}
+      >
+        {list.map(item => {
+          const { href, title, searchResult } = item
 
-        return (
-          <li
-            key={href}
-            className="card-item m-2 cursor-pointer max-w-[100%]"
-            style={{
-              width: activeData ? '95%' : '300px',
-              border:
-                activeData?.href === href
-                  ? `1px solid ${token.colorPrimary}`
-                  : 'none',
-            }}
-            onClick={() => {
-              onSelect(activeData?.href === href ? null : item)
-            }}
-          >
-            {renderHeader(searchResult)}
-            <h3 title={title} className="line-clamp-2 mb-2">
-              {title}
-            </h3>
-            <a
-              title={href}
-              href={href}
-              target="_blank"
-              className="line-clamp-2 my-1"
-              style={{ color: token.colorLink, overflowWrap: 'anywhere' }}
+          return (
+            <li
+              key={href}
+              className="card-item m-2 cursor-pointer max-w-[100%]"
+              style={{
+                width: activeData ? '95%' : '300px',
+                border:
+                  activeData?.href === href
+                    ? `1px solid ${token.colorPrimary}`
+                    : 'none',
+              }}
+              onClick={() => {
+                onSelect(activeData?.href === href ? null : item)
+              }}
             >
-              {href}
-            </a>
-          </li>
+              {renderHeader(searchResult)}
+              <h4 title={title} className="line-clamp-2 mb-2 text-sm">
+                {title}
+              </h4>
+              <a
+                title={href}
+                href={href}
+                target="_blank"
+                className="line-clamp-2 my-1 break-all w-fit"
+                style={{ color: token.colorLink, overflowWrap: 'anywhere' }}
+              >
+                {href}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
+
+  useEffect(() => {
+    getDisplayType()
+  }, [])
+
+  useEffect(() => {
+    getDomainList()
+  }, [documents])
+
+  if (!documents.length) {
+    return (
+      <Empty
+        className=" mx-auto mt-16 px-2"
+        description={
+          searchStatus ? '暂无搜索数据，请换一个关键词试试吧' : '暂无数据'
+        }
+      />
+    )
+  }
+
+  return displayType === 'default' ? (
+    renderDocumentList(documents)
+  ) : (
+    <div className="pt-3">
+      {domainList.map(item => {
+        const { domain, children } = item
+        return (
+          <div>
+            <h3 className="pl-3 py-1 text-base">{domain}</h3>
+            {renderDocumentList(children)}
+          </div>
         )
       })}
-    </ul>
-  ) : (
-    <Empty
-      className=" mx-auto mt-16 px-2"
-      description={
-        searchStatus ? '暂无搜索数据，请换一个关键词试试吧' : '暂无数据'
-      }
-    />
+    </div>
   )
 })

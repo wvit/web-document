@@ -10,7 +10,7 @@ const documentFields = { title: '标题', textContent: '内容', href: '链接' 
 
 /** 文档主页布局 */
 export const Layout = memo(() => {
-  const [pageList, setPageList] = useState<any[]>([])
+  const [documentList, setDocumentList] = useState<any[]>([])
   const [searchResults, setSearchResults] = useState<any[]>([])
   const [searchKeywords, setSearchKeywords] = useState<string[]>([])
   const [activePageData, setActivePageData] = useState<any>(null)
@@ -31,7 +31,7 @@ export const Layout = memo(() => {
       documentRef.current.add(item)
     })
 
-    setPageList(list)
+    setDocumentList(list)
   }
 
   /** 对搜索结果数据进行转换、排序等处理 */
@@ -63,7 +63,7 @@ export const Layout = memo(() => {
         const fieldCount = keywords.reduce((prevCount, keyword) => {
           return prevCount + searchData[keyword].length
         }, 0)
-        const findItem = pageList.find(item => item.id === id)
+        const findItem = documentList.find(item => item.id === id)
 
         return {
           ...findItem,
@@ -123,7 +123,7 @@ export const Layout = memo(() => {
       <div className="flex flex-1 h-[0]">
         <DocumentList
           searchStatus={searchStatus}
-          documents={searchStatus ? searchResults : pageList}
+          documents={searchStatus ? searchResults : documentList}
           activeData={activePageData}
           onSelect={data => setActivePageData(data)}
         />
