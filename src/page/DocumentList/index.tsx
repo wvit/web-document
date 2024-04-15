@@ -142,7 +142,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
     )
   }
 
-  return displayType === 'default' ? (
+  return searchStatus || displayType === 'default' ? (
     renderDocumentList(documents)
   ) : (
     <div className="pt-3">
