@@ -3,6 +3,7 @@ import flexSearch from 'flexsearch'
 import { storeHandles } from '@/utils/idb'
 import { Header } from '../Header'
 import { DocumentList } from '../DocumentList'
+import { Sandbox } from '../Sandbox'
 
 /** 文档索引字段 */
 const documentFields = { title: '标题', textContent: '内容', href: '链接' }
@@ -126,14 +127,7 @@ export const Layout = memo(() => {
           activeData={activePageData}
           onSelect={data => setActivePageData(data)}
         />
-        {activePageData && (
-          <div className=" w-[100%] mt-3 mr-3">
-            <iframe
-              className="page-content w-[100%] h-[100%]"
-              srcDoc={activePageData.htmlContent}
-            ></iframe>
-          </div>
-        )}
+        <Sandbox activeData={activePageData} />
       </div>
     </div>
   )

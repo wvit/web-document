@@ -85,7 +85,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
             }}
           >
             {renderHeader(searchResult)}
-            <h3 title={title} className="line-clamp-2">
+            <h3 title={title} className="line-clamp-2 mb-2">
               {title}
             </h3>
             <a

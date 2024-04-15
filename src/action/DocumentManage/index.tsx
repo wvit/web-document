@@ -4,6 +4,7 @@ import Button from 'antd/es/button'
 import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
+import Radio from 'antd/es/radio'
 import { storeHandles } from '@/utils/idb'
 
 const textEncoder = new TextEncoder()
@@ -11,7 +12,11 @@ const textEncoder = new TextEncoder()
 /** 文档管理组件 */
 export const DocumentManage = memo(() => {
   const [documentList, setDocumentList] = useState<any[]>([])
+  const [domainList, setDomainList] = useState<any[]>([])
   const [selectIds, setSelectIds] = useState<string[]>([])
+  const [displayType, setDisplayType] = useState<'default' | 'domain'>(
+    'default'
+  )
 
   /** 是否全选状态 */
   const checkAll =
@@ -24,10 +29,15 @@ export const DocumentManage = memo(() => {
   /** 获取文档页面列表 */
   const getDocumentList = async () => {
     const { list } = await storeHandles.document.getAll()
+    const domainMap = {}
 
     list.forEach(item => {
+      const { styleLinks, domain } = item
+      // const {  } = domainMap[item] || {}
       const dataEncode = textEncoder.encode(JSON.stringify(item))
+
       item.storageSize = (dataEncode.length / 1024 / 1024).toFixed(2)
+      // domainMap[domain] = 
     })
     setDocumentList(list)
   }
@@ -44,6 +54,39 @@ export const DocumentManage = memo(() => {
     setSelectIds(e.target.checked ? documentList.map(item => item.id) : [])
   }
 
+  /** 渲染文档列表 */
+  const renderDocumentList = list => {
+    return (
+      <ul className="mt-2 flex flex-wrap">
+        {list.map(item => {
+          const { id, title, href, storageSize, domain } = item
+
+          return (
+            <li key={id} className="card-item flex m-1 w-[252px]">
+              <Checkbox value={id} className="mr-2" />
+              <div className=" text-xs w-[100%]">
+                <div className="flex justify-between">
+                  <span className=" max-w-[75%] break-all line-clamp-1">
+                    {domain}
+                  </span>
+                  <span className="ml-2">{storageSize} MB</span>
+                </div>
+                <a
+                  href={href}
+                  target="_blank"
+                  className=" mt-2 line-clamp-2 w-fit"
+                  title={title}
+                >
+                  {title}
+                </a>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
+
   useEffect(() => {
     getDocumentList()
     storeHandles.document.onChange(getDocumentList)
@@ -51,55 +94,45 @@ export const DocumentManage = memo(() => {
 
   return (
     <div className="p-2">
-      <div className="ml-1 mt-1 flex items-center">
-        <Checkbox
-          indeterminate={indeterminate}
-          onChange={selectAllDoc}
-          checked={checkAll}
-          className=" mr-6"
-        >
-          全选
-        </Checkbox>
-
-        {!!selectIds.length && (
-          <Popconfirm
-            title="是否确认删除所选页面文档？"
-            onConfirm={deleteDocuments}
+      <div className="ml-1 mt-1 flex items-center justify-between">
+        <div>
+          <Checkbox
+            indeterminate={indeterminate}
+            onChange={selectAllDoc}
+            checked={checkAll}
+            className=" mr-6"
           >
-            <Button size="small">删除所选项</Button>
-          </Popconfirm>
-        )}
+            全选
+          </Checkbox>
+
+          {!!selectIds.length && (
+            <Popconfirm
+              title="是否确认删除所选页面文档？"
+              onConfirm={deleteDocuments}
+            >
+              <Button size="small">删除所选项</Button>
+            </Popconfirm>
+          )}
+        </div>
+
+        <div>
+          <Radio.Group
+            value={displayType}
+            size="small"
+            buttonStyle="solid"
+            optionType="button"
+            options={[
+              { label: '默认排列', value: 'default' },
+              { label: '按网站排列', value: 'domain' },
+            ]}
+            onChange={e => setDisplayType(e.target.value)}
+          />
+        </div>
       </div>
 
       {documentList.length ? (
         <Checkbox.Group value={selectIds} onChange={setSelectIds}>
-          <ul className="mt-2 flex flex-wrap">
-            {documentList.map(item => {
-              const { id, title, href, storageSize, host } = item
-
-              return (
-                <li key={id} className="card-item flex m-1 w-[252px]">
-                  <Checkbox value={id} className="mr-2" />
-                  <div className=" text-xs">
-                    <div className="flex justify-between">
-                      <span className=" max-w-[75%] break-all line-clamp-1">
-                        {host}
-                      </span>
-                      <span className="ml-2">{storageSize} MB</span>
-                    </div>
-                    <a
-                      href={href}
-                      target="_blank"
-                      className=" mt-2 line-clamp-2"
-                      title={title}
-                    >
-                      {title}
-                    </a>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+          {renderDocumentList(documentList)}
         </Checkbox.Group>
       ) : (
         <Empty className=" mt-6" />
