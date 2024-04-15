@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "web-document",
+  "description": "web-document",
+  "version": "0.0.1",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["lib/single-file-bootstrap.js", "lib/single-file.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/index.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "action/index.html",
+    "default_icon": "icon.png"
+  },
+  "background": {
+    "matches": ["*://*/*"],
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
+  "permissions": ["scripting", "tabs", "activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["*.png", "page/index.html"],
+      "matches": ["*://*/*"]
+    }
+  ]
+}
