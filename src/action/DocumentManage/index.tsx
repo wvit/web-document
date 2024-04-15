@@ -5,6 +5,7 @@ import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
+import { Message, Action } from '@/utils'
 import { storeHandles, objectHandles, useDomainList } from '@/utils/idb'
 
 /** 文档管理组件 */
@@ -70,7 +71,7 @@ export const DocumentManage = memo(() => {
               <Checkbox value={id} className="mr-2" />
               <div className=" text-xs w-[100%]">
                 <div className="flex justify-between">
-                  <span className=" max-w-[75%] break-all line-clamp-1">
+                  <span className=" max-w-[72%] break-all line-clamp-1">
                     {displayType === 'default' ? domain : path}
                   </span>
                   <span className="ml-2">{contentSize} MB</span>
@@ -94,7 +95,8 @@ export const DocumentManage = memo(() => {
   useEffect(() => {
     getDocumentData()
     getDisplayType()
-    storeHandles.document.onChange(getDocumentData)
+
+    Message.action.on(Action.Action.RefreshDocumentData, getDocumentData)
   }, [])
 
   return (

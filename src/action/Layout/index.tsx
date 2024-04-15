@@ -1,8 +1,6 @@
 import { memo, useState } from 'react'
 import Button from 'antd/es/button'
-import message from 'antd/es/message'
 import { Message, Action, getResource } from '@/utils'
-import { storeHandles } from '@/utils/idb'
 import { DocumentManage } from '../DocumentManage'
 
 /** 页面布局 */
@@ -10,13 +8,12 @@ export const Layout = memo(() => {
   const [saveLoading, setSaveLoading] = useState(false)
 
   /** 保存当前页面 */
-  const saveCurrentPage = async (action: Action.Content) => {
+  const saveCurrentPage = async handleType => {
     setSaveLoading(true)
-    const msgRes = await Message.content.activeSend(action)
+    await Message.background.send(Action.Background.SaveDocument, {
+      handleType,
+    })
     setSaveLoading(false)
-
-    await storeHandles.document.create({ id: msgRes.href, ...msgRes })
-    message.success('保存成功')
   }
 
   return (
@@ -31,9 +28,7 @@ export const Layout = memo(() => {
           loading={saveLoading}
           type="primary"
           className="mr-2"
-          onClick={() => {
-            saveCurrentPage(Action.Content.GetPage)
-          }}
+          onClick={() => saveCurrentPage('page')}
         >
           保存当前页面
         </Button>
@@ -41,9 +36,7 @@ export const Layout = memo(() => {
           loading={saveLoading}
           type="primary"
           className="mr-2"
-          onClick={() => {
-            saveCurrentPage(Action.Content.GetArticle)
-          }}
+          onClick={() => saveCurrentPage('article')}
         >
           仅保存当前页面文章
         </Button>

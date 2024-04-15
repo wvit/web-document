@@ -1,22 +1,28 @@
 /** 发送消息数据类型 */
-type MessageType<T extends Action.Background | Action.Content | Action.Window> =
-  {
-    action: T
-    [key: string]: any
-  }
+type MessageType<
+  T extends Action.Background | Action.Content | Action.Action | Action.Window
+> = {
+  action: T
+  [key: string]: any
+}
 
 /** 区分 chrome.runtime.message 的 action 操作类型*/
 export namespace Action {
   export enum Content {
-    /** 获取当前选项卡的页面内容 */
-    GetPage = 'getPage',
-    /** 获取文章 */
-    GetArticle = 'GetArticle',
+    /** 获取页面文档数据 */
+    GetDocumentData = 'getDocumentData',
+  }
+
+  export enum Action {
+    /** 刷新页面文档数据 */
+    RefreshDocumentData = 'refreshDocumentData',
   }
 
   export enum Background {
     /** 在后台中操作IDB */
     HandleIDB = 'handleIDB',
+    /** 保存页面文档内容 */
+    SaveDocument = 'SaveDocument',
   }
 
   export enum Window {}
@@ -25,12 +31,12 @@ export namespace Action {
 /** 方便区分消息的走向，因为在 chrome 扩展中，有 background newtab content action 等多个环境。 */
 export const Message = {
   content: {
-    /** 向指定 newtab 页面发送 message */
+    /** 向指定 content 环境发送 message */
     send: (tabId: number, action: Action.Content, message?: any) => {
       return chrome.tabs.sendMessage(tabId, { action, ...message })
     },
 
-    /** 向当前选中页面的 content 发送 message */
+    /** 向当前标签页的 content 环境发送 message */
     activeSend: async (action: Action.Content, message?: any) => {
       const { id } =
         (
@@ -45,19 +51,19 @@ export const Message = {
       }
     },
 
-    /** 监听向 content 发送的 message 事件 */
+    /** 监听向 content 环境发送的 message 事件 */
     on: (
       action: Action.Content,
       callback: (
         message: any,
-        sender: any,
-        sendResponse: (data?: any) => void
+        sendResponse: (data?: any) => void,
+        sender: any
       ) => void
     ) => {
       chrome.runtime.onMessage.addListener(
         (message: MessageType<Action.Content>, sender, sendResponse) => {
           if (action === message.action) {
-            callback?.(message, sender, sendResponse)
+            callback?.(message, sendResponse, sender)
             /** 返回 true，告诉chrome.runtime， 这个 sendResponse 会后续响应 */
             return true
           }
@@ -66,25 +72,51 @@ export const Message = {
     },
   },
 
+  action: {
+    /** 向 action 环境发送消息 */
+    send: (action: Action.Action, message?: any) => {
+      return chrome.runtime.sendMessage({ action, ...message })
+    },
+
+    /** 监听向 action 环境发送的 message 事件 */
+    on: (
+      action: Action.Action,
+      callback: (
+        message: any,
+        sendResponse: (data?: any) => void,
+        sender: any
+      ) => void
+    ) => {
+      chrome.runtime.onMessage.addListener(
+        (message: MessageType<Action.Action>, sender, sendResponse) => {
+          if (action === message.action) {
+            callback?.(message, sendResponse, sender)
+            return true
+          }
+        }
+      )
+    },
+  },
+
   background: {
-    /** 向 background 发送消息 */
+    /** 向 background 环境发送消息 */
     send: (action: Action.Background, message?: any) => {
       return chrome.runtime.sendMessage({ action, ...message })
     },
 
-    /** 监听向 background 发送的 message 事件 */
+    /** 监听向 background 环境发送的 message 事件 */
     on: (
       action: Action.Background,
       callback: (
         message: any,
-        sender: any,
-        sendResponse: (data?: any) => void
+        sendResponse: (data?: any) => void,
+        sender: any
       ) => void
     ) => {
       chrome.runtime.onMessage.addListener(
         (message: MessageType<Action.Background>, sender, sendResponse) => {
           if (action === message.action) {
-            callback?.(message, sender, sendResponse)
+            callback?.(message, sendResponse, sender)
             return true
           }
         }

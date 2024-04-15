@@ -37,5 +37,5 @@ export const useDomainList = async documentList => {
     }
   })
 
-  return domainList.sort((a, b) => (a.key > b.key ? 1 : -1))
+  return domainList.sort((a, b) => (a.key > b.key ? -1 : 1))
 }

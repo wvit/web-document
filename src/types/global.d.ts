@@ -126,7 +126,7 @@ declare global {
         delayBeforeProcessing: number
         _migratedTemplateFormat: boolean
       }>,
-      initOptions: { fetch: (url, options) => Promise<any> }
+      initOptions?: { fetch: (url, options) => Promise<any> }
     ) => {
       content: string
       filename: string
