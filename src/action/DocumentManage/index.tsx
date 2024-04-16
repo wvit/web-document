@@ -50,6 +50,7 @@ export const DocumentManage = memo(() => {
   const deleteDocuments = async () => {
     await storeHandles.document.batchDelete(selectIds)
     setSelectIds([])
+    getDocumentData()
     message.success(getI18n('删除成功'))
   }
 

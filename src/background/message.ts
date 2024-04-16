@@ -1,4 +1,4 @@
-import { Message, Action, getI18n } from '@/utils'
+import { Message, Action, getI18n, getStorageSize } from '@/utils'
 import { storeHandles } from '@/utils/idb'
 
 /** 通知 content 环境保存页面文档 */
@@ -45,5 +45,25 @@ Message.background.on(
     const result = await storeHandles[storeName][handleType](params)
 
     sendResponse(result)
+  }
+)
+
+/** 缓存远程资源 */
+Message.background.on(
+  Action.Background.CacheResource,
+  async (message, sendResponse) => {
+    const { url, domain, resourceType, requestOptions } = message
+    const res = await fetch(url, requestOptions)
+    const content = await res.text()
+    const contentSize = getStorageSize(content)
+    const status = await storeHandles.resource.create({
+      id: url,
+      resourceType,
+      content,
+      domain,
+      contentSize,
+    })
+
+    sendResponse(status)
   }
 )

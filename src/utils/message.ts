@@ -22,7 +22,9 @@ export namespace Action {
     /** 在后台中操作IDB */
     HandleIDB = 'handleIDB',
     /** 保存页面文档内容 */
-    SaveDocument = 'SaveDocument',
+    SaveDocument = 'saveDocument',
+    /** 缓存远程资源 */
+    CacheResource = 'cacheResource',
   }
 
   export enum Window {}

@@ -1,32 +1,20 @@
 import { Readability } from '@mozilla/readability'
-import { Dom, styleToString, Message, Action, getI18n } from '@/utils'
-
-const textEncoder = new TextEncoder()
-
-/** 获取内容占用磁盘空间大小 */
-const getStorageSize = content => {
-  const dataEncode = textEncoder.encode(content)
-  const storageSize = Number((dataEncode.length / 1024 / 1024).toFixed(2))
-  return storageSize
-}
+import { Dom, styleToString, Message, Action, getStorageSize } from '@/utils'
 
 /** 重写 singleFile 的 fetch 资源方法 */
 const getRequest = domain => {
   return async (url, requestOptions) => {
-    const type = url.split('.').pop()
-    const fetchData = async () => {
-      const res = await fetch(url, requestOptions)
-      const content = await res.text()
-      const contentSize = getStorageSize(content)
-
-      Message.background.send(Action.Background.HandleIDB, {
-        storeName: 'resource',
-        handleType: 'create',
-        params: { id: url, type, content, domain, contentSize },
+    const resourceType = url.split('?')[0].split('.').pop()
+    const cacheResource = async () => {
+      return Message.background.send(Action.Background.CacheResource, {
+        url,
+        domain,
+        requestOptions,
+        resourceType,
       })
     }
 
-    if (type === 'css') {
+    if (resourceType === 'css') {
       const resourceResult = await Message.background.send(
         Action.Background.HandleIDB,
         {
@@ -37,7 +25,7 @@ const getRequest = domain => {
       )
 
       /** 如果数据中已经有当前资源数据，就不等待请求返回 */
-      resourceResult ? await fetchData() : fetchData()
+      resourceResult ? await cacheResource() : cacheResource()
 
       /** 这个 fetch 方法传入 singleFile 中后会被缓存，所以只能将变量挂在全局来使用 */
       window.webDocumentStyleLinks.push(url)

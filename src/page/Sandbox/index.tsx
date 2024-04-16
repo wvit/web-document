@@ -16,7 +16,7 @@ export const Sandbox = memo((props: SandboxProps) => {
   const getPageResource = async () => {
     const results = await storeHandles.resource.getIds(styleLinks || [])
     const styles = results
-      .filter(item => item.type === 'css')
+      .filter(item => item.resourceType === 'css')
       .map(item => {
         const { id, content, createDate } = item
         return `<style data-src="${id}" data-date="${createDate}">${content}</style>`

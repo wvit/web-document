@@ -23,8 +23,8 @@ export const useDomainList = async documentList => {
     const { domain } = item
     const findData = domainList.find(item => item.domain === domain)
     const styleSize =
-      resourceMap[domain]?.reduce((prev, resouce) => {
-        return prev + resouce.contentSize
+      resourceMap[domain]?.reduce((prev, resource) => {
+        return prev + resource.contentSize
       }, 0) || 0
 
     if (findData) {
