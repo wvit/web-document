@@ -3,7 +3,7 @@ import theme from 'antd/es/theme'
 import Popover from 'antd/es/popover'
 import Empty from 'antd/es/empty'
 import { getI18n } from '@/utils'
-import { objectHandles, useDomainList } from '@/utils/idb'
+import { objectHandles, getDomainList } from '@/utils/idb'
 
 export interface DocumentListProps {
   /** 文档列表 */
@@ -26,8 +26,8 @@ export const DocumentList = memo((props: DocumentListProps) => {
   const { token } = theme.useToken()
 
   /** 获取文档列表数据 */
-  const getDomainList = async () => {
-    const domainList = await useDomainList(documents)
+  const getDomainData = async () => {
+    const domainList = await getDomainList(documents)
     setDomainList(domainList)
   }
 
@@ -124,7 +124,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
   }, [])
 
   useEffect(() => {
-    getDomainList()
+    getDomainData()
   }, [documents])
 
   if (!documents.length) {

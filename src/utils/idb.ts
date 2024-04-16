@@ -11,7 +11,7 @@ const db = new IDB({
 export const { storeHandles, objectHandles } = new Handle({ db })
 
 /** 获取按域名分类的文档列表数据 */
-export const useDomainList = async documentList => {
+export const getDomainList = async documentList => {
   const { list } = await storeHandles.resource.getAll()
   const domainList: any[] = []
   const resourceMap = list.reduce((prev, resource) => {
@@ -19,6 +19,7 @@ export const useDomainList = async documentList => {
     return { ...prev, [domain]: [...(prev[domain] || []), resource] }
   }, {})
 
+  /** 将页面文档列表，按域名进行分类 */
   documentList.forEach(item => {
     const { domain } = item
     const findData = domainList.find(item => item.domain === domain)

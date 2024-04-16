@@ -17,9 +17,9 @@ export const saveDocument = async options => {
     type: 'basic',
     iconUrl: '/icon.png',
     title: getI18n('网页文档'),
-    contextMessage: true
-      ? getI18n('保存完成')
-      : getI18n('保存失败，请刷新重试'),
+    contextMessage: `${msgRes.domain} : ${
+      status ? getI18n('保存完成') : getI18n('保存失败，请刷新重试')
+    }`,
     message: '',
   })
 

@@ -6,7 +6,7 @@ import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
 import { Message, Action, getI18n } from '@/utils'
-import { storeHandles, objectHandles, useDomainList } from '@/utils/idb'
+import { storeHandles, objectHandles, getDomainList } from '@/utils/idb'
 
 /** 文档管理组件 */
 export const DocumentManage = memo(() => {
@@ -34,10 +34,11 @@ export const DocumentManage = memo(() => {
   /** 获取文档页面列表 */
   const getDocumentData = async () => {
     const { list } = await storeHandles.document.getAll()
-    const domainList = await useDomainList(list)
+    const domainList = await getDomainList(list)
 
     setDocumentList(list)
     setDomainList(domainList)
+    return list
   }
 
   /** 设置列表展示类型 */
@@ -46,11 +47,36 @@ export const DocumentManage = memo(() => {
     objectHandles.globalConfig.set({ listDisplayType })
   }
 
+  /** 删除文档相关联的资源数据 */
+  const deleteResource = async deleteDocuments => {
+    const list = await getDocumentData()
+    /** 已删除的资源 ids */
+    const deleteResourceIds: string[] = Array.from(
+      new Set(deleteDocuments.map(item => item.styleLinks).flat())
+    )
+    /** 目前正在使用中的资源 ids */
+    const currentResourceIds: string[] = Array.from(
+      new Set(list.map(item => item.styleLinks).flat())
+    )
+
+    deleteResourceIds.forEach(item => {
+      if (!currentResourceIds.includes(item)) {
+        /** 如果在使用中的资源 ids 中没有找到此 id，就从数据库中删除 */
+        storeHandles.resource.delete(item)
+      }
+    })
+  }
+
   /** 删除已选文档数据 */
   const deleteDocuments = async () => {
+    const deleteDocuments = documentList.filter(item =>
+      selectIds.includes(item.id)
+    )
+
     await storeHandles.document.batchDelete(selectIds)
+
     setSelectIds([])
-    getDocumentData()
+    deleteResource(deleteDocuments)
     message.success(getI18n('删除成功'))
   }
 
