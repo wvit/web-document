@@ -1,0 +1,65 @@
+{
+  "web_document": {
+    "message": "web document"
+  },
+  "Save_current_page": {
+    "message": "Save current page"
+  },
+  "Save_article_content_only": {
+    "message": "Save article content only"
+  },
+  "Open_document_homepage": {
+    "message": "Open document homepage"
+  },
+  "Select_all": {
+    "message": "Select all"
+  },
+  "Delete_selected_items": {
+    "message": "Delete selected items"
+  },
+  "Default_sorting": {
+    "message": "Default sorting"
+  },
+  "Sort_by_website": {
+    "message": "Sort by website"
+  },
+  "Deletion_successful": {
+    "message": "Deletion successful"
+  },
+  "Are_you_sure_you_want_to_delete_the_selected_page_document": {
+    "message": "Are you sure you want to delete the selected page document?"
+  },
+  "Cancel": {
+    "message": "Cancel"
+  },
+  "Confirm": {
+    "message": "Confirm"
+  },
+  "Save_Completed": {
+    "message": "Save Completed"
+  },
+  "Title": {
+    "message": "Title"
+  },
+  "Content": {
+    "message": "Content"
+  },
+  "URL": {
+    "message": "URL"
+  },
+  "Please_enter_the_title_content_or_URL_you_want_to_search_for": {
+    "message": "Please enter the title, content, or URL you want to search for"
+  },
+  "No_search_data_found_please_try_another_keyword": {
+    "message": "No search data found, please try another keyword"
+  },
+  "No_data_available": {
+    "message": "No data available"
+  },
+  "Contains": {
+    "message": "Contains"
+  },
+  "Contains_this_keyword": {
+    "message": "Contains this keyword"
+  }
+}

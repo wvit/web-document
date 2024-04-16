@@ -1,0 +1,65 @@
+{
+  "web_document": {
+    "message": "网页文档"
+  },
+  "Save_current_page": {
+    "message": "保存当前页面"
+  },
+  "Save_article_content_only": {
+    "message": "仅保存文章内容"
+  },
+  "Open_document_homepage": {
+    "message": "打开文档主页"
+  },
+  "Select_all": {
+    "message": "全选"
+  },
+  "Delete_selected_items": {
+    "message": "删除所选项"
+  },
+  "Default_sorting": {
+    "message": "默认排列"
+  },
+  "Sort_by_website": {
+    "message": "按网站排列"
+  },
+  "Deletion_successful": {
+    "message": "删除成功"
+  },
+  "Are_you_sure_you_want_to_delete_the_selected_page_document": {
+    "message": "是否确认删除所选页面文档?"
+  },
+  "Cancel": {
+    "message": "取消"
+  },
+  "Confirm": {
+    "message": "确认"
+  },
+  "Save_Completed": {
+    "message": "保存完成"
+  },
+  "Title": {
+    "message": "标题"
+  },
+  "Content": {
+    "message": "内容"
+  },
+  "URL": {
+    "message": "链接"
+  },
+  "Please_enter_the_title_content_or_URL_you_want_to_search_for": {
+    "message": "请输入需要查找的标题、内容、网址"
+  },
+  "No_search_data_found_please_try_another_keyword": {
+    "message": "暂无搜索数据，请换一个关键词试试吧"
+  },
+  "No_data_available": {
+    "message": "暂无数据"
+  },
+  "Contains": {
+    "message": "包含"
+  },
+  "Contains_this_keyword": {
+    "message": "中包含此关键词"
+  }
+}

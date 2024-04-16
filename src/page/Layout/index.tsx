@@ -1,12 +1,17 @@
 import { memo, useState, useEffect, useRef } from 'react'
 import flexSearch from 'flexsearch'
+import { getI18n } from '@/utils'
 import { storeHandles } from '@/utils/idb'
 import { Header } from '../Header'
 import { DocumentList } from '../DocumentList'
 import { Sandbox } from '../Sandbox'
 
 /** 文档索引字段 */
-const documentFields = { title: '标题', textContent: '内容', href: '链接' }
+const documentFields = {
+  title: getI18n('标题'),
+  textContent: getI18n('内容'),
+  href: getI18n('链接'),
+}
 
 /** 文档主页布局 */
 export const Layout = memo(() => {

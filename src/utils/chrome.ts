@@ -24,6 +24,9 @@ export const getResource = (resource: string) => chrome.runtime.getURL(resource)
 
 /** 获取国际化字段 */
 export const getI18n = (key: keyof typeof locales) => {
-  const fieldName = locales[key].replace(/\s/g, '_')
+  const fieldName = locales[key]
+    .replace(/\s/g, '_')
+    .replace(/[^a-zA-Z0-9_]/g, '')
+
   return chrome.i18n.getMessage(fieldName)
 }

@@ -22,9 +22,10 @@ export const useDomainList = async documentList => {
   documentList.forEach(item => {
     const { domain } = item
     const findData = domainList.find(item => item.domain === domain)
-    const styleSize = resourceMap[domain].reduce((prev, resouce) => {
-      return prev + resouce.contentSize
-    }, 0)
+    const styleSize =
+      resourceMap[domain]?.reduce((prev, resouce) => {
+        return prev + resouce.contentSize
+      }, 0) || 0
 
     if (findData) {
       findData.children.push(item)
@@ -37,5 +38,5 @@ export const useDomainList = async documentList => {
     }
   })
 
-  return domainList.sort((a, b) => (a.key > b.key ? -1 : 1))
+  return domainList.sort((a, b) => (a.domain > b.domain ? 1 : -1))
 }

@@ -5,7 +5,7 @@ import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
-import { Message, Action } from '@/utils'
+import { Message, Action, getI18n } from '@/utils'
 import { storeHandles, objectHandles, useDomainList } from '@/utils/idb'
 
 /** 文档管理组件 */
@@ -50,7 +50,7 @@ export const DocumentManage = memo(() => {
   const deleteDocuments = async () => {
     await storeHandles.document.batchDelete(selectIds)
     setSelectIds([])
-    message.success('删除成功')
+    message.success(getI18n('删除成功'))
   }
 
   /** 全选所有文档 */
@@ -100,7 +100,7 @@ export const DocumentManage = memo(() => {
   }, [])
 
   return (
-    <div className="p-2">
+    <div className="p-2 flex flex-col flex-1 h-0">
       <div className="ml-1 mt-1 flex items-center justify-between">
         <div>
           <Checkbox
@@ -109,15 +109,18 @@ export const DocumentManage = memo(() => {
             checked={checkAll}
             className=" mr-6"
           >
-            全选
+            {getI18n('全选')}
           </Checkbox>
 
           {!!selectIds.length && (
             <Popconfirm
-              title="是否确认删除所选页面文档？"
+              title={getI18n('是否确认删除所选页面文档?')}
               onConfirm={deleteDocuments}
+              overlayClassName=" max-w-[300px]"
+              cancelText={getI18n('取消')}
+              okText={getI18n('确认')}
             >
-              <Button size="small">删除所选项</Button>
+              <Button size="small">{getI18n('删除所选项')}</Button>
             </Popconfirm>
           )}
         </div>
@@ -129,8 +132,8 @@ export const DocumentManage = memo(() => {
             buttonStyle="solid"
             optionType="button"
             options={[
-              { label: '默认排列', value: 'default' },
-              { label: '按网站排列', value: 'domain' },
+              { label: getI18n('默认排列'), value: 'default' },
+              { label: getI18n('按网站排列'), value: 'domain' },
             ]}
             onChange={e => setListDisplayType(e.target.value)}
           />
@@ -138,14 +141,18 @@ export const DocumentManage = memo(() => {
       </div>
 
       {documentList.length ? (
-        <Checkbox.Group value={selectIds} onChange={setSelectIds}>
+        <Checkbox.Group
+          className="overflow-auto"
+          value={selectIds}
+          onChange={setSelectIds}
+        >
           {displayType === 'default'
             ? renderDocumentList(documentList)
             : domainList.map(item => {
                 const { domain, styleSize, children } = item
 
                 return (
-                  <div>
+                  <div className="w-[100%]">
                     <h3 className="pl-1 mt-2 text-base">
                       {domain}
                       <span className=" font-normal text-xs ml-2 text-gray-400">
@@ -158,7 +165,7 @@ export const DocumentManage = memo(() => {
               })}
         </Checkbox.Group>
       ) : (
-        <Empty className=" mt-6" />
+        <Empty className=" mt-6" description={getI18n('暂无数据')} />
       )}
     </div>
   )

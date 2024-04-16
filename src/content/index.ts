@@ -1,6 +1,6 @@
 import { Readability } from '@mozilla/readability'
 import notification from 'antd/es/notification'
-import { Dom, styleToString, Message, Action } from '@/utils'
+import { Dom, styleToString, Message, Action, getI18n } from '@/utils'
 
 const textEncoder = new TextEncoder()
 
@@ -138,10 +138,10 @@ Message.content.on(
     }
 
     notification.success({
-      message: 'web-document',
+      message: getI18n('网页文档'),
       placement: 'topLeft',
       duration: 2,
-      description: '保存完成',
+      description: getI18n('保存完成'),
     })
   }
 )

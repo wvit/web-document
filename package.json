@@ -7,11 +7,11 @@
   "scripts": {
     "patch": "pnpm patch-commit 'patches/readability'",
     "i18n": "node ./script/i18n.js",
+    "content": "vite build --config content.vite.ts --watch",
     "build": "vite build --config content.vite.ts && vite build && npm run i18n",
     "build:watch": "vite build --watch",
     "build:entry": "entry=newtab,action npm run build:watch",
-    "build:zip": "npm run build && npm run i18n && node ./script/zip.js",
-    "content:watch": "vite build --config content.vite.ts --watch"
+    "build:zip": "npm run build && npm run i18n && node ./script/zip.js"
   },
   "dependencies": {
     "@mozilla/readability": "0.5.0",

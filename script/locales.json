@@ -6,5 +6,18 @@
   "全选": "Select all",
   "删除所选项": "Delete selected items",
   "默认排列": "Default sorting",
-  "按网站排列": "Sort by website"
+  "按网站排列": "Sort by website",
+  "删除成功": "Deletion successful",
+  "是否确认删除所选页面文档?": "Are you sure you want to delete the selected page document?",
+  "取消": "Cancel",
+  "确认": "Confirm",
+  "保存完成": "Save Completed",
+  "标题": "Title",
+  "内容": "Content",
+  "链接": "URL",
+  "请输入需要查找的标题、内容、网址": "Please enter the title, content, or URL you want to search for",
+  "暂无搜索数据，请换一个关键词试试吧": "No search data found, please try another keyword",
+  "暂无数据": "No data available",
+  "包含": "Contains",
+  "中包含此关键词": "Contains this keyword"
 }

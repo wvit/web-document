@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
 import Select from 'antd/es/select'
-import { getResource } from '@/utils'
+import { getI18n, getResource } from '@/utils'
 import { objectHandles } from '@/utils/idb'
 
 export interface HeaderProps {
@@ -47,9 +47,9 @@ export const Header = memo((props: HeaderProps) => {
         <Select
           size="large"
           mode="tags"
-          className="min-w-[500px] max-w-[700px] ml-20"
+          className="min-w-[500px] max-w-[700px] ml-20 placeholder-xs"
+          placeholder={getI18n('请输入需要查找的标题、内容、网址')}
           maxTagCount={5}
-          placeholder="请输入需要查找的文档标题、内容、网址"
           onChange={searchKeywords}
           options={searchOptions.map(item => ({ label: item, value: item }))}
         />

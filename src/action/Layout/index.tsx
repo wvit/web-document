@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 import Button from 'antd/es/button'
-import { Message, Action, getResource } from '@/utils'
+import { Message, Action, getResource, getI18n } from '@/utils'
 import { DocumentManage } from '../DocumentManage'
 
 /** 页面布局 */
@@ -30,7 +30,7 @@ export const Layout = memo(() => {
           className="mr-2"
           onClick={() => saveCurrentPage('savePage')}
         >
-          保存当前页面
+          {getI18n('保存当前页面')}
         </Button>
         <Button
           loading={saveLoading}
@@ -38,7 +38,7 @@ export const Layout = memo(() => {
           className="mr-2"
           onClick={() => saveCurrentPage('saveArticle')}
         >
-          仅保存当前页面文章
+          {getI18n('仅保存文章内容')}
         </Button>
         <Button
           type="primary"
@@ -49,7 +49,7 @@ export const Layout = memo(() => {
             })
           }}
         >
-          打开文档主页
+          {getI18n('打开文档主页')}
         </Button>
       </div>
 

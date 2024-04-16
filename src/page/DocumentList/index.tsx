@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from 'react'
 import theme from 'antd/es/theme'
 import Popover from 'antd/es/popover'
 import Empty from 'antd/es/empty'
+import { getI18n } from '@/utils'
 import { objectHandles, useDomainList } from '@/utils/idb'
 
 export interface DocumentListProps {
@@ -46,7 +47,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
         className="mb-2 pb-1 flex flex-wrap items-center leading-5"
         style={{ borderBottom: '1px dashed rgba(0,0,0,0.2)' }}
       >
-        <span className="mr-2">包含</span>
+        <span className="mr-2">{getI18n('包含')}</span>
         {keywords.map((keyword, index) => {
           return (
             <>
@@ -57,7 +58,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
                     <span className=" font-medium mr-2">
                       {searchResult[keyword].join('、')}
                     </span>
-                    中包含此关键词
+                    {getI18n('中包含此关键词')}
                   </>
                 }
               >
@@ -79,12 +80,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
   /** 渲染文档列表 */
   const renderDocumentList = list => {
     return (
-      <ul
-        className="p-1 flex flex-wrap flex-row max-h-[100%] h-fit overflow-x-hidden overflow-y-auto"
-        style={{
-          width: activeData ? '300px' : '100%',
-        }}
-      >
+      <ul className="p-1 flex flex-wrap">
         {list.map(item => {
           const { href, title, searchResult } = item
 
@@ -136,25 +132,34 @@ export const DocumentList = memo((props: DocumentListProps) => {
       <Empty
         className=" mx-auto mt-16 px-2"
         description={
-          searchStatus ? '暂无搜索数据，请换一个关键词试试吧' : '暂无数据'
+          searchStatus
+            ? getI18n('暂无搜索数据，请换一个关键词试试吧')
+            : getI18n('暂无数据')
         }
       />
     )
   }
 
-  return searchStatus || displayType === 'default' ? (
-    renderDocumentList(documents)
-  ) : (
-    <div className="pt-3">
-      {domainList.map(item => {
-        const { domain, children } = item
-        return (
-          <div>
-            <h3 className="pl-3 py-1 text-base">{domain}</h3>
-            {renderDocumentList(children)}
-          </div>
-        )
-      })}
+  return (
+    <div
+      className="overflow-auto"
+      style={{ width: activeData ? '300px' : '100%' }}
+    >
+      {searchStatus || displayType === 'default' ? (
+        renderDocumentList(documents)
+      ) : (
+        <div className="pt-3">
+          {domainList.map(item => {
+            const { domain, children } = item
+            return (
+              <div>
+                <h3 className="pl-3 py-1 text-base">{domain}</h3>
+                {renderDocumentList(children)}
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 })
