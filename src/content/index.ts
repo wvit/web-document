@@ -106,9 +106,9 @@ Message.content.on(
     const { handleType } = message
     const { htmlDocument, pageData } = await getPageData()
 
-    if (handleType === 'page') {
+    if (handleType === 'savePage') {
       sendResponse(pageData)
-    } else if (handleType === 'article') {
+    } else if (handleType === 'saveArticle') {
       const { content, textContent } = new Readability(htmlDocument, {
         keepClasses: true,
       }).parse()!

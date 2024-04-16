@@ -1,3 +1,5 @@
+import locales from '../../script/locales.json'
+
 /** 操作chrome缓存 */
 export const local = {
   /** 获取chrome数据缓存 */
@@ -20,11 +22,8 @@ export const local = {
 /** 获取chrome扩展资源 */
 export const getResource = (resource: string) => chrome.runtime.getURL(resource)
 
-/** 获取标签页列表中，为 newtab 的页面 */
-export const getNewtabs = async () => {
-  return new Promise<any[]>(resolve => {
-    chrome.tabs.query({ url: 'chrome://newtab/' }, tabs => {
-      resolve(tabs)
-    })
-  })
+/** 获取国际化字段 */
+export const getI18n = (key: keyof typeof locales) => {
+  const fieldName = locales[key].replace(/\s/g, '_')
+  return chrome.i18n.getMessage(fieldName)
 }

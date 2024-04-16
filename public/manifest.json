@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "web-document",
+  "name": "__MSG_web_document__",
+  "default_locale": "en",
   "description": "web-document",
   "version": "0.0.1",
   "icons": {
@@ -29,7 +30,7 @@
     "service_worker": "background/index.js",
     "type": "module"
   },
-  "permissions": ["scripting", "tabs", "activeTab", "storage"],
+  "permissions": ["scripting", "activeTab", "storage", "contextMenus"],
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {

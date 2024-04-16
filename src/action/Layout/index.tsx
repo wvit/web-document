@@ -28,7 +28,7 @@ export const Layout = memo(() => {
           loading={saveLoading}
           type="primary"
           className="mr-2"
-          onClick={() => saveCurrentPage('page')}
+          onClick={() => saveCurrentPage('savePage')}
         >
           保存当前页面
         </Button>
@@ -36,7 +36,7 @@ export const Layout = memo(() => {
           loading={saveLoading}
           type="primary"
           className="mr-2"
-          onClick={() => saveCurrentPage('article')}
+          onClick={() => saveCurrentPage('saveArticle')}
         >
           仅保存当前页面文章
         </Button>
