@@ -30,3 +30,13 @@ export const getI18n = (key: keyof typeof locales) => {
 
   return chrome.i18n.getMessage(fieldName)
 }
+
+/** 捕获 chrome.runtime.lastError 报错  */
+export const catchLastError = (api, ...params) => {
+  api(...params, () => {
+    const lastError = chrome.runtime.lastError
+    if (lastError) {
+      console.log('last error:', lastError.message)
+    }
+  })
+}

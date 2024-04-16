@@ -30,7 +30,13 @@
     "service_worker": "background/index.js",
     "type": "module"
   },
-  "permissions": ["scripting", "activeTab", "storage", "contextMenus"],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "contextMenus",
+    "notifications"
+  ],
   "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {

@@ -19,5 +19,6 @@
   "暂无搜索数据，请换一个关键词试试吧": "No search data found, please try another keyword",
   "暂无数据": "No data available",
   "包含": "Contains",
-  "中包含此关键词": "Contains this keyword"
+  "中包含此关键词": "Contains this keyword",
+  "保存失败，请刷新重试": "Save failed, please refresh and try again"
 }
