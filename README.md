@@ -18,7 +18,7 @@ English ｜ [中文](./README-zh_CN.md)
 
 6. The plugin locally stores all your preference configurations, such as previously used search keywords and sorting preferences.
 
-（Please note that this plugin is not suitable for interactive websites that heavily rely on JavaScript and make frequent requests to remote servers, as it is not designed for such scenarios.）
+（Please note that this plugin is not suitable for interactive websites that rely on JavaScript or make frequent requests to remote servers, as it is not designed for such scenarios.）
 
 ### Plugin screenshot
 
