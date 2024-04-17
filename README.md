@@ -22,27 +22,27 @@ English ｜ [中文](./README-zh_CN.md)
 
 ### Plugin screenshot
 
-###### Right-click menu - buttons like 'Save Page.jpg
+###### (Right-click menu - buttons like 'Save Page).jpg
 
 ![buttons like 'Save Page](https://wvit.github.io/static/web-document/img6.jpg)
 
-###### Plugin popup - arranged by website.jpg
+###### (Plugin popup - arranged by website).jpg
 
 ![arranged by website](https://wvit.github.io/static/web-document/img4.jpg)
 
-###### Plugin popup - default arrangement and deletion.jpg
+###### (Plugin popup - default arrangement and deletion).jpg
 
 ![default arrangement and deletion](https://wvit.github.io/static/web-document/img5.jpg)
 
-###### Page document homepage - view page content.jpg
+###### (Page document homepage - view page content).jpg
 
 ![view page content](https://wvit.github.io/static/web-document/img3.jpg)
 
-###### Page document homepage - search keywords.jpg
+###### (Page document homepage - search keywords).jpg
 
 ![search keywords](https://wvit.github.io/static/web-document/img2.jpg)
 
-###### Comparison with original website's memory resources.gif
+###### (Comparison with original website's memory resources).gif
 
 ![Comparison with original website's memory resources](https://wvit.github.io/static/web-document/img1.gif)
 
