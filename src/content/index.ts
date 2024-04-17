@@ -1,5 +1,5 @@
 import { Readability } from '@mozilla/readability'
-import { Dom, styleToString, Message, Action, getStorageSize } from '@/utils'
+import { dom, styleToString, Message, Action, getStorageSize } from '@/utils'
 
 /** 重写 singleFile 的 fetch 资源方法 */
 const getRequest = domain => {
@@ -68,8 +68,8 @@ const getPageData = async () => {
   const htmlDocument = document.implementation.createHTMLDocument('')
   htmlDocument.write(content)
 
-  const body = Dom.query('body', htmlDocument.cloneNode(true) as Document)
-  Dom.queryAll('script,style', body).forEach(item => item.remove())
+  const body = dom.query('body', htmlDocument.cloneNode(true) as Document)
+  dom.queryAll('script,style', body).forEach(item => item.remove())
   const textContent = body.textContent?.replace(/\s+/g, ' ')
 
   return {
