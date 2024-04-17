@@ -48,5 +48,5 @@ English ｜ [中文](./README-zh_CN.md)
 
 ### Quick tutorial
 
-<video src="https://wvit.github.io/static/web-document/course.mp4" controls>
+<video src="https://wvit.github.io/static/web-document/course.mp4" width="800" height="500" controls>
 </video>
