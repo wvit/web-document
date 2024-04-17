@@ -44,6 +44,9 @@ English ｜ [中文](./README-zh_CN.md)
 
 ###### (Comparison with original website's memory resources).gif
 
-![Comparison with original website's memory resources](https://wvit.github.io/static/web-document/img1.gif)
+![memory resources](https://wvit.github.io/static/web-document/img1.gif)
 
 ### Quick tutorial
+
+<video src="https://wvit.github.io/static/web-document/course.mp4" controls>
+</video>
