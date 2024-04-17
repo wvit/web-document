@@ -11,12 +11,19 @@ const writeFile = name => {
 }
 
 Object.keys(locales).forEach(key => {
-  const fieldName = locales[key]
-    .replace(/\s/g, '_')
-    .replace(/[^a-zA-Z0-9_]/g, '')
+  let value = locales[key]
 
-  i18nData.zh_CN[fieldName] = { message: key }
-  i18nData.en[fieldName] = { message: locales[key] }
+  if (typeof value === 'string') {
+    /** [zh_CN]:[en] 场景 */
+    value = value.replace(/\s/g, '_').replace(/[^a-zA-Z0-9_]/g, '')
+
+    i18nData.zh_CN[value] = { message: key }
+    i18nData.en[value] = { message: locales[key] }
+  } else {
+    /** [field]: { zh_CN: [zh_CN], en: [en] } 场景 */
+    i18nData.zh_CN[key] = { message: value['zh_CN'] }
+    i18nData.en[key] = { message: value['en'] }
+  }
 })
 
 writeFile('en')

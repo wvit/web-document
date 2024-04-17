@@ -64,5 +64,8 @@
   },
   "Save_failed_please_refresh_and_try_again": {
     "message": "保存失败，请刷新重试"
+  },
+  "description": {
+    "message": "用于在浏览器环境保存网页文档，方便在没有网络和快速查找网页内容的情况下使用，还能为您节约浏览器的使用内存。"
   }
 }

@@ -20,5 +20,9 @@
   "暂无数据": "No data available",
   "包含": "Contains",
   "中包含此关键词": "Contains this keyword",
-  "保存失败，请刷新重试": "Save failed, please refresh and try again"
+  "保存失败，请刷新重试": "Save failed, please refresh and try again",
+  "description": {
+    "zh_CN": "用于在浏览器环境保存网页文档，方便在没有网络和快速查找网页内容的情况下使用，还能为您节约浏览器的使用内存。",
+    "en": "A browser extension for saving web documents locally, allowing you to access them offline and quickly search for webpage content without an internet connection, while also saving browser memory usage."
+  }
 }

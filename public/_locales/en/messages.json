@@ -64,5 +64,8 @@
   },
   "Save_failed_please_refresh_and_try_again": {
     "message": "Save failed, please refresh and try again"
+  },
+  "description": {
+    "message": "A browser extension for saving web documents locally, allowing you to access them offline and quickly search for webpage content without an internet connection, while also saving browser memory usage."
   }
 }
