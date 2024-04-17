@@ -13,7 +13,7 @@ export interface DocumentListProps {
   /** 是否为搜索状态 */
   searchStatus: boolean
   /** 选中文档事件 */
-  onSelect: (data: any) => void
+  onSelect: (selectData: any) => void
 }
 
 /** 文档列表 */

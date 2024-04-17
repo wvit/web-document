@@ -17,8 +17,8 @@ dependencies:
     specifier: 0.0.8
     version: 0.0.8
   '@vorker/utils':
-    specifier: 0.0.6
-    version: 0.0.6
+    specifier: 0.0.10
+    version: 0.0.10
   antd:
     specifier: ^5.14.1
     version: 5.16.0(react-dom@18.2.0)(react@18.2.0)
@@ -968,8 +968,8 @@ packages:
       '@vorker/utils': 0.0.9
     dev: false
 
-  /@vorker/utils@0.0.6:
-    resolution: {integrity: sha512-TiY6aqEmxAEZr7m09g9vbecK+RrdwLELQEgRe+PS31+y/1lXixZhZ7GtHJwpDjiFBkID8WIkQH1rq7yQfteVxA==}
+  /@vorker/utils@0.0.10:
+    resolution: {integrity: sha512-rrRhmX2OeCzlMmzg0y5zBsu/vCYisbQBCuKiTxHQpUSwIk3w9XJlIxzldfFt1qhWadzxfCgADZ3bMovRA1F1vg==}
     dependencies:
       csstype: 3.1.3
     dev: false
