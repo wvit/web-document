@@ -30,14 +30,6 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 
 ![保存页面等按钮](https://wvit.github.io/static/web-document/img6.jpg)
 
-###### 插件弹窗-按网站排列.jpg
-
-![按网站排列](https://wvit.github.io/static/web-document/img4.jpg)
-
-###### 插件弹窗-默认排列与删除.jpg
-
-![默认排列与删除](https://wvit.github.io/static/web-document/img5.jpg)
-
 ###### 页面文档主页-查看页面内容.jpg
 
 ![查看页面内容](https://wvit.github.io/static/web-document/img3.jpg)
@@ -45,6 +37,14 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 ###### 页面文档主页-搜索关键字.jpg
 
 ![搜索关键字](https://wvit.github.io/static/web-document/img2.jpg)
+
+###### 插件弹窗-按网站排列.jpg
+
+![按网站排列](https://wvit.github.io/static/web-document/img4.jpg)
+
+###### 插件弹窗-默认排列与删除.jpg
+
+![默认排列与删除](https://wvit.github.io/static/web-document/img5.jpg)
 
 ###### 与原网站内存资源比较.gif
 

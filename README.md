@@ -30,14 +30,6 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 
 ![buttons like 'Save Page](https://wvit.github.io/static/web-document/img6.jpg)
 
-###### (Plugin popup - arranged by website).jpg
-
-![arranged by website](https://wvit.github.io/static/web-document/img4.jpg)
-
-###### (Plugin popup - default arrangement and deletion).jpg
-
-![default arrangement and deletion](https://wvit.github.io/static/web-document/img5.jpg)
-
 ###### (Page document homepage - view page content).jpg
 
 ![view page content](https://wvit.github.io/static/web-document/img3.jpg)
@@ -45,6 +37,14 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 ###### (Page document homepage - search keywords).jpg
 
 ![search keywords](https://wvit.github.io/static/web-document/img2.jpg)
+
+###### (Plugin popup - arranged by website).jpg
+
+![arranged by website](https://wvit.github.io/static/web-document/img4.jpg)
+
+###### (Plugin popup - default arrangement and deletion).jpg
+
+![default arrangement and deletion](https://wvit.github.io/static/web-document/img5.jpg)
 
 ###### (Comparison with original website's memory resources).gif
 
