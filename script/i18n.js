@@ -14,7 +14,7 @@ Object.keys(locales).forEach(key => {
   let value = locales[key]
 
   if (typeof value === 'string') {
-    /** [zh_CN]:[en] 场景 */
+    /** [zh_CN]: [en] 场景 */
     value = value.replace(/\s/g, '_').replace(/[^a-zA-Z0-9_]/g, '')
 
     i18nData.zh_CN[value] = { message: key }

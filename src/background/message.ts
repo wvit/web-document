@@ -8,18 +8,18 @@ export const saveDocument = async options => {
     Action.Content.GetDocumentData,
     { handleType }
   )
+  const { href, domain } = msgRes
   const status = await storeHandles.document.create({
-    id: msgRes.href,
+    id: href,
     ...msgRes,
   })
+  const notificationId = `${Math.random().toString().slice(-10)}${href}`
 
-  chrome.notifications.create({
+  chrome.notifications.create(notificationId, {
     type: 'basic',
     iconUrl: '/icon.png',
     title: getI18n('网页文档'),
-    contextMessage: `${msgRes.domain} : ${
-      status ? getI18n('保存完成') : getI18n('保存失败，请刷新重试')
-    }`,
+    contextMessage: `${domain} : ${getI18n('保存完成，点击查看')}`,
     message: '',
   })
 

@@ -1,4 +1,4 @@
-import { getI18n, getResource, catchLastError } from '@/utils'
+import { getI18n, getResource, catchLastError, qs } from '@/utils'
 import { saveDocument } from './message'
 
 catchLastError(chrome.contextMenus.create, {
@@ -30,4 +30,13 @@ chrome.contextMenus.onClicked.addListener(info => {
       url: getResource('/page/index.html'),
     })
   }
+})
+
+/** 点击chrome通知 */
+chrome.notifications.onClicked.addListener(notificationId => {
+  const documentId = notificationId.slice(10)
+  const url = qs.stringify({ documentId }, '/page/index.html')
+
+  chrome.tabs.create({ url })
+  catchLastError(chrome.notifications.clear, notificationId)
 })

@@ -24,14 +24,18 @@ export const getResource = (resource: string) => chrome.runtime.getURL(resource)
 
 /** 获取国际化字段 */
 export const getI18n = (key: keyof typeof locales) => {
-  const fieldName = locales[key]
-    .replace(/\s/g, '_')
-    .replace(/[^a-zA-Z0-9_]/g, '')
+  let fieldName = locales[key] as string
+
+  if (typeof fieldName === 'string') {
+    fieldName = fieldName.replace(/\s/g, '_').replace(/[^a-zA-Z0-9_]/g, '')
+  } else {
+    fieldName = key
+  }
 
   return chrome.i18n.getMessage(fieldName)
 }
 
-/** 捕获 chrome.runtime.lastError 报错  */
+/** 凡是没有提供 Promise 的 chrome api 都需要这个方法来捕获 chrome.runtime.lastError 报错。  */
 export const catchLastError = (api, ...params) => {
   api(...params, () => {
     const lastError = chrome.runtime.lastError

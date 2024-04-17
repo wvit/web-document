@@ -35,8 +35,8 @@
   "Confirm": {
     "message": "确认"
   },
-  "Save_Completed": {
-    "message": "保存完成"
+  "Save_complete_click_to_view": {
+    "message": "保存完成，点击查看"
   },
   "Title": {
     "message": "标题"
