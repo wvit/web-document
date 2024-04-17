@@ -49,9 +49,3 @@ English ｜ [中文](./README-zh_CN.md)
 ### Quick tutorial
 
 https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6011256efd
-
-https://wvit.github.io/static/web-document/tutorial.mp4
-
-<video src="https://wvit.github.io/static/web-document/tutorial.mp4" width="800" height="500" controls>
-  不支持
-</video>
