@@ -20,6 +20,10 @@ English ｜ [中文](./README-zh_CN.md)
 
 （Please note that this plugin is not suitable for interactive websites that rely on JavaScript or make frequent requests to remote servers, as it is not designed for such scenarios.）
 
+### Quick tutorial
+
+https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6011256efd
+
 ### Plugin screenshot
 
 ###### (Right-click menu - buttons like 'Save Page).jpg
@@ -45,7 +49,3 @@ English ｜ [中文](./README-zh_CN.md)
 ###### (Comparison with original website's memory resources).gif
 
 ![memory resources](https://wvit.github.io/static/web-document/img1.gif)
-
-### Quick tutorial
-
-https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6011256efd

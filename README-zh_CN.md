@@ -20,6 +20,10 @@
 
 （需注意本插件不适合功能交互型网站，因为此类网站依赖大量 JS 和需要请求远程服务器，不符合本插件场景）
 
+### 简略教程
+
+https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6011256efd
+
 ### 插件截图
 
 ###### 鼠标右键菜单-保存页面等按钮.jpg
@@ -45,8 +49,3 @@
 ###### 与原网站内存资源比较.gif
 
 ![与原网站内存资源比较](https://wvit.github.io/static/web-document/img1.gif)
-
-### 简略教程
-
-https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6011256efd
-
