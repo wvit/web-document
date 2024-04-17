@@ -48,4 +48,5 @@
 
 ### 简略教程
 
-https://wvit.github.io/static/web-document/course.mp4
+https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6011256efd
+
