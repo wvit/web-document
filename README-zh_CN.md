@@ -48,6 +48,4 @@
 
 ### 简略教程
 
-<video src="https://wvit.github.io/static/web-document/course.mp4" width="800" height="500" controls>
-</video>
-
+https://wvit.github.io/static/web-document/course.mp4
