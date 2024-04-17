@@ -1,8 +1,8 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState, useCallback } from 'react'
 import theme from 'antd/es/theme'
 import Popover from 'antd/es/popover'
 import Empty from 'antd/es/empty'
-import { getI18n } from '@/utils'
+import { getI18n, dom, qs, sleep } from '@/utils'
 import { objectHandles, getDomainList } from '@/utils/idb'
 
 export interface DocumentListProps {
@@ -25,17 +25,27 @@ export const DocumentList = memo((props: DocumentListProps) => {
   const [domainList, setDomainList] = useState<any[]>([])
   const { token } = theme.useToken()
 
-  /** 获取文档列表数据 */
-  const getDomainData = async () => {
-    const domainList = await getDomainList(documents)
-    setDomainList(domainList)
-  }
-
   /** 获取列表展示类型 */
-  const getDisplayType = async () => {
+  const getDisplayType = useCallback(async () => {
     const { listDisplayType } = await objectHandles.globalConfig.get()
     setDisplayType(listDisplayType || 'default')
-  }
+  }, [])
+
+  /** 滚动至选中数据 */
+  const scrollToActive = useCallback(async () => {
+    await sleep(500)
+    const { documentId } = qs.getQuery()
+
+    dom
+      .queryId(documentId)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [])
+
+  /** 获取文档列表数据 */
+  const getDomainData = useCallback(async () => {
+    const domainList = await getDomainList(documents)
+    setDomainList(domainList)
+  }, [documents])
 
   /** 渲染文档项头部内容 */
   const renderHeader = searchResult => {
@@ -50,7 +60,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
         <span className="mr-2">{getI18n('包含')}</span>
         {keywords.map((keyword, index) => {
           return (
-            <>
+            <span key={keyword}>
               {index ? '、' : ''}
               <Popover
                 content={
@@ -70,7 +80,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
                   "{keyword}"
                 </span>
               </Popover>
-            </>
+            </span>
           )
         })}
       </div>
@@ -87,6 +97,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
           return (
             <li
               key={href}
+              id={href}
               className="card-item m-2 cursor-pointer max-w-[100%]"
               style={{
                 width: activeData ? '95%' : '300px',
@@ -121,6 +132,7 @@ export const DocumentList = memo((props: DocumentListProps) => {
 
   useEffect(() => {
     getDisplayType()
+    scrollToActive()
   }, [])
 
   useEffect(() => {

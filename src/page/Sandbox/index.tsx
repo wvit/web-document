@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState, useCallback } from 'react'
 import { storeHandles } from '@/utils/idb'
 
 export interface SandboxProps {
@@ -13,7 +13,7 @@ export const Sandbox = memo((props: SandboxProps) => {
   const [iframeSrcDoc, setIframeSrcDoc] = useState(htmlContent)
 
   /** 获取页面所需资源 */
-  const getPageResource = async () => {
+  const getPageResource = useCallback(async () => {
     const results = await storeHandles.resource.getIds(styleLinks || [])
     const styles = results
       .filter(item => item.resourceType === 'css')
@@ -24,7 +24,7 @@ export const Sandbox = memo((props: SandboxProps) => {
       .join('\n')
 
     setIframeSrcDoc(`${styles} ${htmlContent}`)
-  }
+  }, [activeData])
 
   useEffect(() => {
     if (activeData) getPageResource()
