@@ -5,7 +5,7 @@ import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
-import { Message, Action, getI18n } from '@/utils'
+import { Message, Action, getI18n, uploadFile } from '@/utils'
 import { storeHandles, objectHandles, getDomainList } from '@/utils/idb'
 
 /** 文档管理组件 */
@@ -67,7 +67,7 @@ export const DocumentManage = memo(() => {
     })
   }
 
-  /** 删除已选文档数据 */
+  /** 删除已选页面文档 */
   const deleteDocuments = async () => {
     const deleteDocuments = documentList.filter(item =>
       selectIds.includes(item.id)
@@ -80,9 +80,19 @@ export const DocumentManage = memo(() => {
     message.success(getI18n('删除成功'))
   }
 
+  /** 导出所选页面文档 */
+  const exportDocuments = async () => {}
+
   /** 全选所有文档 */
   const selectAllDoc = e => {
     setSelectIds(e.target.checked ? documentList.map(item => item.id) : [])
+  }
+
+  /** 导入配置文件 */
+  const importUploadChange = async () => {
+    const result = await uploadFile({ accept: '.json' })
+
+    console.log(111111, result)
   }
 
   /** 渲染文档列表 */
@@ -134,25 +144,40 @@ export const DocumentManage = memo(() => {
             indeterminate={indeterminate}
             onChange={selectAllDoc}
             checked={checkAll}
-            className=" mr-6"
           >
             {getI18n('全选')}
           </Checkbox>
 
           {!!selectIds.length && (
-            <Popconfirm
-              title={getI18n('是否确认删除所选页面文档?')}
-              onConfirm={deleteDocuments}
-              overlayClassName=" max-w-[300px]"
-              cancelText={getI18n('取消')}
-              okText={getI18n('确认')}
-            >
-              <Button size="small">{getI18n('删除所选项')}</Button>
-            </Popconfirm>
+            <>
+              <Popconfirm
+                title={getI18n('是否确认删除所选页面文档?')}
+                onConfirm={deleteDocuments}
+                overlayClassName=" max-w-[300px]"
+                cancelText={getI18n('取消')}
+                okText={getI18n('确认')}
+              >
+                <Button size="small" className="ml-2">
+                  {getI18n('删除所选项')}
+                </Button>
+              </Popconfirm>
+
+              <Popconfirm
+                title={getI18n('是否确认导出所选页面文档?')}
+                onConfirm={exportDocuments}
+                overlayClassName=" max-w-[300px]"
+                cancelText={getI18n('取消')}
+                okText={getI18n('确认')}
+              >
+                <Button size="small" className="ml-2">
+                  {getI18n('导出所选项')}
+                </Button>
+              </Popconfirm>
+            </>
           )}
         </div>
 
-        <div>
+        <div className="pr-2 flex">
           <Radio.Group
             value={displayType}
             size="small"
@@ -164,6 +189,17 @@ export const DocumentManage = memo(() => {
             ]}
             onChange={e => setListDisplayType(e.target.value)}
           />
+
+          <div className="relative">
+            <Button
+              type="primary"
+              size="small"
+              className="ml-3"
+              onClick={importUploadChange}
+            >
+              {getI18n('批量导入')}
+            </Button>
+          </div>
         </div>
       </div>
 

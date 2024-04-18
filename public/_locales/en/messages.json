@@ -1,4 +1,7 @@
 {
+  "description": {
+    "message": "Stores web pages locally in browsers, enabling offline use and saving browser memory."
+  },
   "web_document": {
     "message": "web document"
   },
@@ -65,7 +68,13 @@
   "Save_failed_please_refresh_and_try_again": {
     "message": "Save failed, please refresh and try again"
   },
-  "description": {
-    "message": "Stores web pages locally in browsers, enabling offline use and saving browser memory."
+  "Export_selected_items": {
+    "message": "Export selected items"
+  },
+  "Are_you_sure_you_want_to_export_the_selected_page_documents": {
+    "message": "Are you sure you want to export the selected page documents?"
+  },
+  "Batch_import": {
+    "message": "Batch import"
   }
 }
