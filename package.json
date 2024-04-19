@@ -1,8 +1,8 @@
 {
   "name": "web-document",
   "description": "",
-  "private": true,
-  "version": "1.0.0",
+  "version": "",
+  "private": false,
   "type": "module",
   "scripts": {
     "patch": "pnpm patch-commit 'patches/readability'",

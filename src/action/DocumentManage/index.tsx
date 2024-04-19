@@ -5,8 +5,10 @@ import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
-import { Message, Action, getI18n, uploadFile } from '@/utils'
+import { Message, Action, getI18n, downloadContent } from '@/utils'
 import { storeHandles, objectHandles, getDomainList } from '@/utils/idb'
+import manifestJson from '@/../public/manifest.json'
+import { Import } from '../Import'
 
 /** 文档管理组件 */
 export const DocumentManage = memo(() => {
@@ -81,18 +83,34 @@ export const DocumentManage = memo(() => {
   }
 
   /** 导出所选页面文档 */
-  const exportDocuments = async () => {}
+  const exportDocuments = async () => {
+    const exportDocuments = documentList.filter(item =>
+      selectIds.includes(item.id)
+    )
+    const resourceIds = Array.from(
+      new Set(exportDocuments.map(item => item.styleLinks).flat())
+    )
+    const exportResources = await storeHandles.resource.getIds(resourceIds)
+
+    message.success('正在为您导出为JSON文件')
+
+    setTimeout(() => {
+      const exportData = JSON.stringify(
+        {
+          version: manifestJson.version,
+          exportDocuments,
+          exportResources,
+        },
+        null,
+        2
+      )
+      downloadContent(exportData, `${getI18n('网页文档')}.json`)
+    }, 500)
+  }
 
   /** 全选所有文档 */
   const selectAllDoc = e => {
     setSelectIds(e.target.checked ? documentList.map(item => item.id) : [])
-  }
-
-  /** 导入配置文件 */
-  const importUploadChange = async () => {
-    const result = await uploadFile({ accept: '.json' })
-
-    console.log(111111, result)
   }
 
   /** 渲染文档列表 */
@@ -116,7 +134,7 @@ export const DocumentManage = memo(() => {
                 <a
                   href={href}
                   target="_blank"
-                  className=" mt-2 line-clamp-2 w-fit"
+                  className=" mt-2 line-clamp-2 w-fit break-all"
                   title={title}
                 >
                   {title}
@@ -189,17 +207,7 @@ export const DocumentManage = memo(() => {
             ]}
             onChange={e => setListDisplayType(e.target.value)}
           />
-
-          <div className="relative">
-            <Button
-              type="primary"
-              size="small"
-              className="ml-3"
-              onClick={importUploadChange}
-            >
-              {getI18n('批量导入')}
-            </Button>
-          </div>
+          <Import />
         </div>
       </div>
 

@@ -2,6 +2,9 @@
   "description": {
     "message": "Stores web pages locally in browsers, enabling offline use and saving browser memory."
   },
+  "version": {
+    "message": "1.1.0"
+  },
   "web_document": {
     "message": "web document"
   },
