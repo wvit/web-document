@@ -1,14 +1,13 @@
 import { memo, useState, useEffect } from 'react'
-import Checkbox from 'antd/es/checkbox'
 import Button from 'antd/es/button'
 import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
-import Empty from 'antd/es/empty'
 import Radio from 'antd/es/radio'
 import { Message, Action, getI18n, downloadContent } from '@/utils'
 import { storeHandles, objectHandles, getDomainList } from '@/utils/idb'
 import manifestJson from '@/../public/manifest.json'
 import { Import } from '../Import'
+import { DocumentList } from '../DocumentList'
 
 /** 文档管理组件 */
 export const DocumentManage = memo(() => {
@@ -18,14 +17,6 @@ export const DocumentManage = memo(() => {
   const [displayType, setDisplayType] = useState<'default' | 'domain'>(
     'default'
   )
-
-  /** 是否全选状态 */
-  const checkAll =
-    documentList.length > 0 && documentList.length === selectIds.length
-
-  /** 是否为半全选状态 */
-  const indeterminate =
-    selectIds.length > 0 && selectIds.length < documentList.length
 
   /** 获取列表展示类型 */
   const getDisplayType = async () => {
@@ -108,64 +99,11 @@ export const DocumentManage = memo(() => {
     }, 500)
   }
 
-  /** 全选所有文档 */
-  const selectAllDoc = e => {
-    setSelectIds(e.target.checked ? documentList.map(item => item.id) : [])
-  }
-
-  /** 渲染文档列表 */
-  const renderDocumentList = list => {
+  /** 渲染文档列表头部内容 */
+  const renderDocumentListHeader = () => {
     return (
-      <ul className="mt-2 flex flex-wrap">
-        {list.map(item => {
-          const { id, title, href, contentSize, domain } = item
-          const path = href.split(domain)[1]
-
-          return (
-            <li key={id} className="card-item flex m-1 w-[252px]">
-              <Checkbox value={id} className="mr-2" />
-              <div className=" text-xs w-[100%]">
-                <div className="flex justify-between">
-                  <span className=" max-w-[72%] break-all line-clamp-1">
-                    {displayType === 'default' ? domain : path}
-                  </span>
-                  <span className="ml-2">{contentSize} MB</span>
-                </div>
-                <a
-                  href={href}
-                  target="_blank"
-                  className=" mt-2 line-clamp-2 w-fit break-all"
-                  title={title}
-                >
-                  {title}
-                </a>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-    )
-  }
-
-  useEffect(() => {
-    getDocumentData()
-    getDisplayType()
-
-    Message.action.on(Action.Action.RefreshDocumentData, getDocumentData)
-  }, [])
-
-  return (
-    <div className="p-2 flex flex-col flex-1 h-0">
-      <div className="ml-1 mt-1 flex items-center justify-between">
+      <div className='flex justify-between w-[100%]'>
         <div>
-          <Checkbox
-            indeterminate={indeterminate}
-            onChange={selectAllDoc}
-            checked={checkAll}
-          >
-            {getI18n('全选')}
-          </Checkbox>
-
           {!!selectIds.length && (
             <>
               <Popconfirm
@@ -210,34 +148,23 @@ export const DocumentManage = memo(() => {
           <Import />
         </div>
       </div>
+    )
+  }
 
-      {documentList.length ? (
-        <Checkbox.Group
-          className="overflow-auto"
-          value={selectIds}
-          onChange={setSelectIds}
-        >
-          {displayType === 'default'
-            ? renderDocumentList(documentList)
-            : domainList.map(item => {
-                const { domain, styleSize, children } = item
+  useEffect(() => {
+    getDocumentData()
+    getDisplayType()
 
-                return (
-                  <div className="w-[100%]">
-                    <h3 className="pl-1 mt-2 text-base">
-                      {domain}
-                      <span className=" font-normal text-xs ml-2 text-gray-400">
-                        ({styleSize} MB)
-                      </span>
-                    </h3>
-                    {renderDocumentList(children)}
-                  </div>
-                )
-              })}
-        </Checkbox.Group>
-      ) : (
-        <Empty className=" mt-6" description={getI18n('暂无数据')} />
-      )}
-    </div>
+    Message.action.on(Action.Action.RefreshDocumentData, getDocumentData)
+  }, [])
+
+  return (
+    <DocumentList
+      documents={displayType === 'default' ? documentList : domainList}
+      displayType={displayType}
+      selectIds={selectIds}
+      renderHeader={renderDocumentListHeader}
+      onSelectChange={setSelectIds}
+    />
   )
 })
