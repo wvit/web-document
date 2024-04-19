@@ -46,13 +46,13 @@ export const Import = memo((props: ImportProps) => {
 
       /** 验证json对象内容 */
       if (jsonData.version && jsonData.documents && jsonData.resources) {
-        message.success('请选择需要导入的文档')
+        message.success(getI18n('请选择需要导入的文档'))
         setImportData(jsonData)
       } else {
-        message.warning('导入失败，请确认文档内容后重试')
+        message.warning(getI18n('导入失败，请确认文档内容后重试'))
       }
     } catch {
-      message.warning('导入失败，请确认文档内容后重试')
+      message.warning(getI18n('导入失败，请确认文档内容后重试'))
     }
   }
 
@@ -77,7 +77,7 @@ export const Import = memo((props: ImportProps) => {
   /** 解析并导入已选中的文档 */
   const importSelectDocuments = async () => {
     if (!selectIds.length) {
-      return message.warning('请选择需要导入的文档')
+      return message.warning(getI18n('请选择需要导入的文档'))
     }
 
     try {
@@ -104,10 +104,10 @@ export const Import = memo((props: ImportProps) => {
 
       closeImport()
       onSuccess?.()
-      message.success('导入完成')
+      message.success(getI18n('导入完成'))
     } catch {
       setImportLoading(false)
-      message.warning('导入失败，请确认文档内容后重试')
+      message.warning(getI18n('导入失败，请确认文档内容后重试'))
     }
   }
 
@@ -122,7 +122,7 @@ export const Import = memo((props: ImportProps) => {
       importJsonFile(res)
     } catch {
       setImportUrlLoading(false)
-      message.warning('导入URL内容失败')
+      message.warning(getI18n('导入URL地址失败'))
     }
   }
 
@@ -138,12 +138,12 @@ export const Import = memo((props: ImportProps) => {
           items: [
             {
               key: 'file',
-              label: '上传JSON文件',
+              label: getI18n('上传JSON文件'),
               onClick: uploadJsonFile,
             },
             {
               key: 'url',
-              label: '从URL导入',
+              label: getI18n('从URL导入'),
               onClick: () => setImportType('url'),
             },
           ],
@@ -157,21 +157,21 @@ export const Import = memo((props: ImportProps) => {
       <Modal
         open={!!importType}
         width="80vw"
-        title="批量导入"
+        title={getI18n('批量导入')}
         style={{ top: 50 }}
         styles={{ header: { margin: 0 } }}
         confirmLoading={importLoading}
         onCancel={closeImport}
         onOk={importSelectDocuments}
-        okText="确认导入"
-        cancelText="取消导入"
+        okText={getI18n('确认导入')}
+        cancelText={getI18n('取消导入')}
       >
         <div className="flex flex-col h-[65vh]">
           {importType === 'url' && (
             <Space.Compact className="pt-2">
               <Input
                 value={importUrl}
-                placeholder="请输入您需要导入的url地址"
+                placeholder={getI18n('请输入您需要导入的URL地址')}
                 onChange={e => setImportUrl(e.target?.value)}
               />
               <Button
@@ -179,7 +179,9 @@ export const Import = memo((props: ImportProps) => {
                 onClick={downloadImportUrl}
                 loading={importUrlLoading}
               >
-                {importUrlLoading ? '正在下载，请稍后' : '确认下载'}
+                {importUrlLoading
+                  ? getI18n('正在下载，请稍后')
+                  : getI18n('确认下载')}
               </Button>
             </Space.Compact>
           )}

@@ -2,9 +2,6 @@
   "description": {
     "message": "用于在浏览器环境保存网页文档，方便在没有网络和快速查找网页内容的情况下使用，还能为您节约浏览器的使用内存。"
   },
-  "version": {
-    "message": "1.1.0"
-  },
   "web_document": {
     "message": "网页文档"
   },
@@ -79,5 +76,38 @@
   },
   "Batch_import": {
     "message": "批量导入"
+  },
+  "Downloading_please_wait": {
+    "message": "正在下载，请稍后"
+  },
+  "Confirm_download": {
+    "message": "确认下载"
+  },
+  "Please_enter_the_URL_you_wish_to_import": {
+    "message": "请输入您需要导入的URL地址"
+  },
+  "Confirm_import": {
+    "message": "确认导入"
+  },
+  "Cancel_import": {
+    "message": "取消导入"
+  },
+  "Import_from_URL": {
+    "message": "从URL导入"
+  },
+  "Upload_JSON_file": {
+    "message": "上传JSON文件"
+  },
+  "Failed_to_import_URL": {
+    "message": "导入URL地址失败"
+  },
+  "Import_failed_please_verify_document_content_and_try_again": {
+    "message": "导入失败，请确认文档内容后重试"
+  },
+  "Import_completed": {
+    "message": "导入完成"
+  },
+  "Please_select_the_document_to_import": {
+    "message": "请选择需要导入的文档"
   }
 }

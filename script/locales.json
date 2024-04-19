@@ -28,5 +28,16 @@
   "保存失败，请刷新重试": "Save failed, please refresh and try again",
   "导出所选项": "Export selected items",
   "是否确认导出所选页面文档?": "Are you sure you want to export the selected page documents?",
-  "批量导入": "Batch import"
+  "批量导入": "Batch import",
+  "正在下载，请稍后": "Downloading, please wait.",
+  "确认下载": "Confirm download.",
+  "请输入您需要导入的URL地址": "Please enter the URL you wish to import.",
+  "确认导入": "Confirm import",
+  "取消导入": "Cancel import",
+  "从URL导入": "Import from URL",
+  "上传JSON文件": "Upload JSON file",
+  "导入URL地址失败": "Failed to import URL",
+  "导入失败，请确认文档内容后重试": "Import failed, please verify document content and try again",
+  "导入完成": "Import completed",
+  "请选择需要导入的文档": "Please select the document to import"
 }
