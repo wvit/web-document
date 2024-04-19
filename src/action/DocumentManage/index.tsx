@@ -75,13 +75,11 @@ export const DocumentManage = memo(() => {
 
   /** 导出所选页面文档 */
   const exportDocuments = async () => {
-    const exportDocuments = documentList.filter(item =>
-      selectIds.includes(item.id)
-    )
+    const documents = documentList.filter(item => selectIds.includes(item.id))
     const resourceIds = Array.from(
-      new Set(exportDocuments.map(item => item.styleLinks).flat())
+      new Set(documents.map(item => item.styleLinks).flat())
     )
-    const exportResources = await storeHandles.resource.getIds(resourceIds)
+    const resources = await storeHandles.resource.getIds(resourceIds)
 
     message.success('正在为您导出为JSON文件')
 
@@ -89,8 +87,8 @@ export const DocumentManage = memo(() => {
       const exportData = JSON.stringify(
         {
           version: manifestJson.version,
-          exportDocuments,
-          exportResources,
+          documents,
+          resources,
         },
         null,
         2
@@ -102,7 +100,7 @@ export const DocumentManage = memo(() => {
   /** 渲染文档列表头部内容 */
   const renderDocumentListHeader = () => {
     return (
-      <div className='flex justify-between w-[100%]'>
+      <div className="flex justify-between w-[100%]">
         <div>
           {!!selectIds.length && (
             <>
@@ -133,7 +131,7 @@ export const DocumentManage = memo(() => {
           )}
         </div>
 
-        <div className="pr-2 flex">
+        <div className="pr-1 flex">
           <Radio.Group
             value={displayType}
             size="small"
@@ -145,7 +143,7 @@ export const DocumentManage = memo(() => {
             ]}
             onChange={e => setListDisplayType(e.target.value)}
           />
-          <Import />
+          <Import onSuccess={getDocumentData} />
         </div>
       </div>
     )
@@ -159,12 +157,15 @@ export const DocumentManage = memo(() => {
   }, [])
 
   return (
-    <DocumentList
-      documents={displayType === 'default' ? documentList : domainList}
-      displayType={displayType}
-      selectIds={selectIds}
-      renderHeader={renderDocumentListHeader}
-      onSelectChange={setSelectIds}
-    />
+    <div className="px-2 h-[100%]">
+      <DocumentList
+        documents={documentList}
+        domainDocuments={domainList}
+        displayType={displayType}
+        selectIds={selectIds}
+        renderHeader={renderDocumentListHeader}
+        onSelectChange={setSelectIds}
+      />
+    </div>
   )
 })

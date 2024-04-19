@@ -53,7 +53,9 @@ export const Layout = memo(() => {
         </div>
       </div>
 
-      <DocumentManage />
+      <div className="flex-1 h-[0]">
+        <DocumentManage />
+      </div>
     </div>
   )
 })
