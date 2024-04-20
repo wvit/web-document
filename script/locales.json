@@ -25,7 +25,7 @@
   "暂无数据": "No data available",
   "包含": "Contains",
   "中包含此关键词": "Contains this keyword",
-  "保存失败，请刷新重试": "Save failed, please refresh and try again",
+  "保存失败，请刷新页面后重试": "Save failed, please refresh the page and try again.",
   "导出所选项": "Export selected items",
   "是否确认导出所选页面文档?": "Are you sure you want to export the selected page documents?",
   "批量导入": "Batch import",

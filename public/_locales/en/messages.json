@@ -65,8 +65,8 @@
   "Contains_this_keyword": {
     "message": "Contains this keyword"
   },
-  "Save_failed_please_refresh_and_try_again": {
-    "message": "Save failed, please refresh and try again"
+  "Save_failed_please_refresh_the_page_and_try_again": {
+    "message": "Save failed, please refresh the page and try again."
   },
   "Export_selected_items": {
     "message": "Export selected items"

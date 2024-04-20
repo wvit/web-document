@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
 import Button from 'antd/es/button'
+import message from 'antd/es/message'
 import { Message, Action, getResource, getI18n } from '@/utils'
 import { DocumentManage } from '../DocumentManage'
 

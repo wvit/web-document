@@ -65,8 +65,8 @@
   "Contains_this_keyword": {
     "message": "中包含此关键词"
   },
-  "Save_failed_please_refresh_and_try_again": {
-    "message": "保存失败，请刷新重试"
+  "Save_failed_please_refresh_the_page_and_try_again": {
+    "message": "保存失败，请刷新页面后重试"
   },
   "Export_selected_items": {
     "message": "导出所选项"

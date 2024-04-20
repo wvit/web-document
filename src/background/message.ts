@@ -1,27 +1,39 @@
-import { Message, Action, getI18n, getStorageSize } from '@/utils'
+import { Message, Action, getI18n, getStorageSize, getId, qs } from '@/utils'
 import { storeHandles } from '@/utils/idb'
+
+/** 提示信息 */
+const notification = (notificationId, contextMessage) => {
+  chrome.notifications.create(notificationId, {
+    type: 'basic',
+    iconUrl: '/icon.png',
+    title: getI18n('网页文档'),
+    contextMessage,
+    message: '',
+  })
+}
 
 /** 通知 content 环境保存页面文档 */
 export const saveDocument = async options => {
   const { handleType } = options
-  const msgRes = await Message.content.activeSend(
-    Action.Content.GetDocumentData,
-    { handleType }
-  )
+  const msgRes = await Message.content
+    .activeSend(Action.Content.GetDocumentData, { handleType })
+    .catch(() => {
+      notification(
+        qs.stringify({ action: 'saveFailed', key: getId() }),
+        getI18n('保存失败，请刷新页面后重试')
+      )
+    })
+  if (!msgRes) return false
   const { href, domain } = msgRes
   const status = await storeHandles.document.create({
     id: href,
     ...msgRes,
   })
-  const notificationId = `${Math.random().toString().slice(-10)}${href}`
 
-  chrome.notifications.create(notificationId, {
-    type: 'basic',
-    iconUrl: '/icon.png',
-    title: getI18n('网页文档'),
-    contextMessage: `${domain} : ${getI18n('保存完成，点击查看')}`,
-    message: '',
-  })
+  notification(
+    qs.stringify({ action: 'saveSuccess', key: getId(), documentId: href }),
+    `${domain} : ${getI18n('保存完成，点击查看')}`
+  )
 
   return status
 }

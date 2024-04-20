@@ -34,9 +34,11 @@ chrome.contextMenus.onClicked.addListener(info => {
 
 /** 点击chrome通知 */
 chrome.notifications.onClicked.addListener(notificationId => {
-  const documentId = notificationId.slice(10)
-  const url = qs.stringify({ documentId }, '/page/index.html')
+  const { action, documentId } = qs.parse(notificationId)
 
-  chrome.tabs.create({ url })
-  catchLastError(chrome.notifications.clear, notificationId)
+  if (action === 'saveSuccess') {
+    const url = qs.stringify({ documentId }, '/page/index.html')
+    chrome.tabs.create({ url })
+    catchLastError(chrome.notifications.clear, notificationId)
+  }
 })

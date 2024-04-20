@@ -56,7 +56,7 @@ export const DocumentList = (props: DocumentListProps) => {
             <li
               {...documentItemProps}
               key={id}
-              className={`card-item flex m-1 w-[252px] ${
+              className={`card-item flex m-1 w-[252px] h-fit ${
                 documentItemProps?.className || ''
               } `}
             >
