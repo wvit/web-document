@@ -16,18 +16,22 @@ export interface HeaderProps {
   onChange: (documentList: any[], searchStatus: boolean) => void
   /** 点击logo */
   onLogoClick?: () => void
+  /** 加载文档数据loading */
+  onDocumentDataLoading?: (loading: boolean) => void
 }
 
 /** 搜索栏等头部组件 */
 export const Header = memo((props: HeaderProps) => {
-  const { onLogoClick, onChange } = props
+  const { onLogoClick, onDocumentDataLoading, onChange } = props
   const [documentList, setDocumentList] = useState<any[]>([])
   const [searchOptions, setSearchOptions] = useState([])
   const documentRef = useRef({} as flexSearch.Document<any, string[]>)
 
   /** 获取当前已保存的页面列表 */
   const getPageList = useCallback(async () => {
+    onDocumentDataLoading?.(true)
     const { list } = await storeHandles.document.getAll()
+    onDocumentDataLoading?.(false)
 
     documentRef.current = new flexSearch.Document({
       // encode: str => str.replace(/[\x00-\x7F]/g, '').split(''),

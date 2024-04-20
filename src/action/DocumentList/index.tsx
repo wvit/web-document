@@ -102,7 +102,7 @@ export const DocumentList = (props: DocumentListProps) => {
 
       {documents.length ? (
         <Checkbox.Group
-          className="h-0 flex-1 overflow-auto flex flex-col"
+          className="h-0 flex-1 overflow-auto flex flex-col flex-nowrap"
           value={selectIds}
           onChange={onSelectChange}
         >

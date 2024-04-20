@@ -1,4 +1,5 @@
 import { memo, useState, useEffect } from 'react'
+import Spin from 'antd/es/spin'
 import { qs } from '@/utils'
 import { storeHandles } from '@/utils/idb'
 import { Header } from '../Header'
@@ -11,6 +12,7 @@ const urlQuery = qs.getQuery()
 export const Layout = memo(() => {
   const [documents, setDocuments] = useState<any[]>([])
   const [searchStatus, setSearchStatus] = useState(false)
+  const [documentDataLoading, setDocumentDataLoading] = useState(false)
   const [activeDocument, setActiveDocument] = useState<any>(null)
 
   /** 初始化时获取当前选中的文档页面 */
@@ -43,21 +45,24 @@ export const Layout = memo(() => {
     <div className="w-[100vw] h-[100vh] bg-[#f0f0f0] flex flex-col">
       <Header
         onLogoClick={setActiveDocumentData}
+        onDocumentDataLoading={setDocumentDataLoading}
         onChange={(list, status) => {
           setDocuments(list)
           setSearchStatus(status)
         }}
       />
 
-      <div className="flex flex-1 h-[0]">
-        <DocumentList
-          searchStatus={searchStatus}
-          documents={documents}
-          activeData={activeDocument}
-          onSelect={setActiveDocumentData}
-        />
-        <Sandbox activeData={activeDocument} />
-      </div>
+      <Spin spinning={documentDataLoading} wrapperClassName='!h-0 flex-1'>
+        <div className="flex h-[100%]">
+          <DocumentList
+            searchStatus={searchStatus}
+            documents={documents}
+            activeData={activeDocument}
+            onSelect={setActiveDocumentData}
+          />
+          <Sandbox activeData={activeDocument} />
+        </div>
+      </Spin>
     </div>
   )
 })

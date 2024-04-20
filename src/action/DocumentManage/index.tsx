@@ -3,6 +3,7 @@ import Button from 'antd/es/button'
 import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
 import Radio from 'antd/es/radio'
+import Spin from 'antd/es/spin'
 import { Message, Action, getI18n, downloadContent } from '@/utils'
 import { storeHandles, objectHandles, getDomainList } from '@/utils/idb'
 import manifestJson from '@/../public/manifest.json'
@@ -13,6 +14,7 @@ import { DocumentList } from '../DocumentList'
 export const DocumentManage = memo(() => {
   const [documentList, setDocumentList] = useState<any[]>([])
   const [domainList, setDomainList] = useState<any[]>([])
+  const [documentDataLoading, setDocumentDataLoading] = useState(false)
   const [selectIds, setSelectIds] = useState<string[]>([])
   const [displayType, setDisplayType] = useState<'default' | 'domain'>(
     'default'
@@ -26,8 +28,10 @@ export const DocumentManage = memo(() => {
 
   /** 获取文档页面列表 */
   const getDocumentData = async () => {
+    setDocumentDataLoading(true)
     const { list } = await storeHandles.document.getAll()
     const domainList = await getDomainList(list)
+    setDocumentDataLoading(false)
 
     setDocumentList(list)
     setDomainList(domainList)
@@ -158,14 +162,16 @@ export const DocumentManage = memo(() => {
 
   return (
     <div className="px-2 h-[100%]">
-      <DocumentList
-        documents={documentList}
-        domainDocuments={domainList}
-        displayType={displayType}
-        selectIds={selectIds}
-        renderHeader={renderDocumentListHeader}
-        onSelectChange={setSelectIds}
-      />
+      <Spin spinning={documentDataLoading}>
+        <DocumentList
+          documents={documentList}
+          domainDocuments={domainList}
+          displayType={displayType}
+          selectIds={selectIds}
+          renderHeader={renderDocumentListHeader}
+          onSelectChange={setSelectIds}
+        />
+      </Spin>
     </div>
   )
 })
