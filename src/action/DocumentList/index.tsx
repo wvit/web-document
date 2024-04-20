@@ -56,7 +56,7 @@ export const DocumentList = (props: DocumentListProps) => {
             <li
               {...documentItemProps}
               key={id}
-              className={`card-item flex m-1 w-[252px] h-fit ${
+              className={`card-item flex m-1 w-[252px] ${
                 documentItemProps?.className || ''
               } `}
             >
@@ -102,7 +102,7 @@ export const DocumentList = (props: DocumentListProps) => {
 
       {documents.length ? (
         <Checkbox.Group
-          className="h-0 flex-1 overflow-auto"
+          className="h-0 flex-1 overflow-auto flex flex-col"
           value={selectIds}
           onChange={onSelectChange}
         >
