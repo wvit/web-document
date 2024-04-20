@@ -29,11 +29,11 @@ export const saveDocument = async options => {
     id: href,
     ...msgRes,
   })
+  const notificationId = qs
+    .stringify({ action: 'saveSuccess', key: getId(), documentId: href })
+    .slice(0, 500)
 
-  notification(
-    qs.stringify({ action: 'saveSuccess', key: getId(), documentId: href }),
-    `${domain} : ${getI18n('保存完成，点击查看')}`
-  )
+  notification(notificationId, `${domain} : ${getI18n('保存完成，点击查看')}`)
 
   return status
 }

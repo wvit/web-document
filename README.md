@@ -51,3 +51,17 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 ###### (Comparison with original website's memory resources).gif
 
 ![memory resources](https://wvit.github.io/static/web-document/img1.gif)
+
+### Precautions
+
+1. To save the webpage before installing the plugin, please refresh the webpage once.
+
+2. This plugin will use some system notifications. If you don't receive notifications even after successful saving, you can check the notification settings of your system.
+
+###### (Plugin prompts).jpg
+
+![Plugin prompts](https://wvit.github.io/static/web-document/img7.jpg)
+
+###### (Open system notification settings).jpg
+
+![Open system notification settings](https://wvit.github.io/static/web-document/img8.jpg)

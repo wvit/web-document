@@ -18,7 +18,7 @@
 
 6. 本地记忆您的所有偏好配置，例如使用过的搜索关键词、排列方式等配置。
 
-7. 支持JSON的导入导出文档，同时支持使用远程URL导入。
+7. 支持 JSON 的导入导出文档，同时支持使用远程 URL 导入。
 
 （需注意本插件不适合功能交互型网站，因为此类网站依赖大量 JS 和需要请求远程服务器，不符合本插件场景）
 
@@ -51,3 +51,18 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 ###### 与原网站内存资源比较.gif
 
 ![与原网站内存资源比较](https://wvit.github.io/static/web-document/img1.gif)
+
+### 注意事项
+
+1. 保存安装插件之前的网页时，需要先将网页刷新一次。
+
+2. 本插件会使用一些系统提示，如果保存成功却没有收到提示，您可以检查一下系统的通知配置。
+
+
+###### 插件提示.jpg
+
+![插件提示](https://wvit.github.io/static/web-document/img7.jpg)
+
+###### 打开系统通知配置.jpg
+
+![打开系统通知配置](https://wvit.github.io/static/web-document/img8.jpg)
