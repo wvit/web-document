@@ -2,6 +2,8 @@
 
 用于在浏览器环境保存网页文档，方便在没有网络和快速查找网页内容的情况下使用，还能为您节约浏览器的使用内存。
 
+[去 Chrome Web Store 安装](https://chromewebstore.google.com/detail/gjnkjamcdgomkghmfgaobnllnlinkfmn)
+
 [English](./README.md) ｜ 中文
 
 ### 功能特性

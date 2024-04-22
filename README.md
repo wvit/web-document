@@ -2,6 +2,8 @@
 
 A browser extension for saving web documents locally, allowing you to access them offline and quickly search for webpage content without an internet connection, while also saving browser memory usage.
 
+[Go to Chrome Web Store to install](https://chromewebstore.google.com/detail/gjnkjamcdgomkghmfgaobnllnlinkfmn)
+
 English ｜ [中文](./README-zh_CN.md)
 
 ### Features and capabilities
