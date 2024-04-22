@@ -1,4 +1,4 @@
-import locales from '../../script/locales.json'
+import locales from '../../scripts/locales.json'
 
 /** 操作chrome缓存 */
 export const local = {
