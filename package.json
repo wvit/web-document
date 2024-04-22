@@ -10,13 +10,13 @@
     "content": "vite build --config content.vite.ts --watch",
     "build": "vite build --config content.vite.ts && vite build && npm run i18n",
     "build:watch": "vite build --watch",
-    "build:entry": "entry=newtab,action npm run build:watch",
+    "build:entry": "entry=background npm run build:watch",
     "build:zip": "npm run build && node ./scripts/zip.js"
   },
   "dependencies": {
     "@mozilla/readability": "0.5.0",
     "@vorker/idb": "0.0.8",
-    "@vorker/utils": "0.0.12",
+    "@vorker/utils": "0.0.13",
     "antd": "^5.14.1",
     "flexsearch": "^0.7.43",
     "react": "^18.2.0",
