@@ -46,6 +46,9 @@ const getPageData = async () => {
   /** 获取页面数据 */
   const singleFileData = await singlefile.getPageData(
     {
+      compressHTML: true,
+      groupDuplicateImages: true,
+
       removeHiddenElements: true,
       removeUnusedStyles: true,
       removeUnusedFonts: true,
@@ -54,11 +57,13 @@ const getPageData = async () => {
       removeAlternativeFonts: true,
       removeAlternativeMedias: true,
       removeAlternativeImages: true,
+
       blockScripts: true,
       blockAudios: true,
       blockVideos: true,
-      compressHTML: true,
-      groupDuplicateImages: true,
+
+      maxResourceSize: 100,
+      maxResourceSizeEnabled: true,
     },
     {
       fetch: getRequest(domain),

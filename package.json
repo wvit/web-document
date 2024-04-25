@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@mozilla/readability": "0.5.0",
-    "@vorker/chrome": "0.0.5",
+    "@vorker/chrome": "0.0.6",
     "@vorker/idb": "0.0.8",
     "@vorker/utils": "0.0.13",
     "antd": "^5.14.1",
