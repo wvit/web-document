@@ -13,6 +13,9 @@ dependencies:
   '@mozilla/readability':
     specifier: 0.5.0
     version: 0.5.0(patch_hash=p6ycesgw332adpes4yhty5crcm)
+  '@vorker/chrome':
+    specifier: 0.0.5
+    version: 0.0.5
   '@vorker/idb':
     specifier: 0.0.8
     version: 0.0.8
@@ -961,6 +964,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@vorker/chrome@0.0.5:
+    resolution: {integrity: sha512-Ex+2ovn09+NbhfZOiNOWEORnzcZwi4uLOqv1ZGXf4T0Oq/QcgYVrBKEMj7Jmc0RPv/PUZNDbbSLw91WG3j3tIg==}
+    dev: false
 
   /@vorker/idb@0.0.8:
     resolution: {integrity: sha512-Zc07sZH5vIExd1DdUWHNshlQN0MpW7YyQwBl5K3ACnTnP3MHgc2C9CtzfyOW56Ha4I+S+R3Pws0HtJ3VNZyeMw==}

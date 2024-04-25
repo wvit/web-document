@@ -10,8 +10,8 @@ export interface DocumentListProps {
   domainDocuments?: any[]
   /** 所选列表项id */
   selectIds: string[]
-  /** 排列方式 */
-  displayType?: 'default' | 'domain'
+  /** 列表排列方式 */
+  listDisplayType?: 'default' | 'domain'
   /** 给文档列表每项的参数 */
   documentItemProps?: HTMLAttributes<any>
   /** 渲染头部额外内容 */
@@ -26,7 +26,7 @@ export const DocumentList = (props: DocumentListProps) => {
     documents,
     domainDocuments,
     selectIds,
-    displayType,
+    listDisplayType,
     documentItemProps,
     renderHeader,
     onSelectChange,
@@ -64,7 +64,7 @@ export const DocumentList = (props: DocumentListProps) => {
               <div className=" text-xs w-[100%]">
                 <div className="flex justify-between">
                   <span className=" max-w-[72%] break-all line-clamp-1">
-                    {displayType === 'domain' ? path : domain}
+                    {listDisplayType === 'domain' ? path : domain}
                   </span>
                   <span className="ml-2">{contentSize} MB</span>
                 </div>
@@ -106,7 +106,7 @@ export const DocumentList = (props: DocumentListProps) => {
           value={selectIds}
           onChange={onSelectChange}
         >
-          {displayType === 'domain'
+          {listDisplayType === 'domain'
             ? domainDocuments?.map(item => {
                 const { domain, styleSize, children } = item
 

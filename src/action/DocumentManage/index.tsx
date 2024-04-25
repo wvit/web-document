@@ -2,29 +2,25 @@ import { memo, useState, useEffect } from 'react'
 import Button from 'antd/es/button'
 import Popconfirm from 'antd/es/popconfirm'
 import message from 'antd/es/message'
-import Radio from 'antd/es/radio'
 import Spin from 'antd/es/spin'
 import { Message, Action, getI18n, downloadContent } from '@/utils'
-import { storeHandles, objectHandles, getDomainList } from '@/utils/idb'
+import { storeHandles, getDomainList } from '@/utils/idb'
 import manifestJson from '@/../public/manifest.json'
 import { Import } from '../Import'
 import { DocumentList } from '../DocumentList'
 
+export interface DocumentManageProps {
+  /** 偏好设置 */
+  preferenceSetting: any
+}
+
 /** 文档管理组件 */
-export const DocumentManage = memo(() => {
+export const DocumentManage = memo((props: DocumentManageProps) => {
+  const { preferenceSetting } = props
   const [documentList, setDocumentList] = useState<any[]>([])
   const [domainList, setDomainList] = useState<any[]>([])
   const [documentDataLoading, setDocumentDataLoading] = useState(false)
   const [selectIds, setSelectIds] = useState<string[]>([])
-  const [displayType, setDisplayType] = useState<'default' | 'domain'>(
-    'default'
-  )
-
-  /** 获取列表展示类型 */
-  const getDisplayType = async () => {
-    const { listDisplayType } = await objectHandles.globalConfig.get()
-    setDisplayType(listDisplayType || 'default')
-  }
 
   /** 获取文档页面列表 */
   const getDocumentData = async () => {
@@ -36,12 +32,6 @@ export const DocumentManage = memo(() => {
     setDocumentList(list)
     setDomainList(domainList)
     return list
-  }
-
-  /** 设置列表展示类型 */
-  const setListDisplayType = listDisplayType => {
-    setDisplayType(listDisplayType)
-    objectHandles.globalConfig.set({ listDisplayType })
   }
 
   /** 删除文档相关联的资源数据 */
@@ -136,17 +126,6 @@ export const DocumentManage = memo(() => {
         </div>
 
         <div className="pr-1 flex">
-          <Radio.Group
-            value={displayType}
-            size="small"
-            buttonStyle="solid"
-            optionType="button"
-            options={[
-              { label: getI18n('默认排列'), value: 'default' },
-              { label: getI18n('按网站排列'), value: 'domain' },
-            ]}
-            onChange={e => setListDisplayType(e.target.value)}
-          />
           <Import onSuccess={getDocumentData} />
         </div>
       </div>
@@ -155,7 +134,6 @@ export const DocumentManage = memo(() => {
 
   useEffect(() => {
     getDocumentData()
-    getDisplayType()
 
     Message.action.on(Action.Action.RefreshDocumentData, getDocumentData)
   }, [])
@@ -166,7 +144,7 @@ export const DocumentManage = memo(() => {
         <DocumentList
           documents={documentList}
           domainDocuments={domainList}
-          displayType={displayType}
+          listDisplayType={preferenceSetting?.listDisplayType}
           selectIds={selectIds}
           renderHeader={renderDocumentListHeader}
           onSelectChange={setSelectIds}

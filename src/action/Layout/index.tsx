@@ -2,10 +2,12 @@ import { memo, useState } from 'react'
 import Button from 'antd/es/button'
 import { Message, Action, getResource, getI18n } from '@/utils'
 import { DocumentManage } from '../DocumentManage'
+import { PreferenceSetting } from '../PreferenceSetting'
 
 /** 页面布局 */
 export const Layout = memo(() => {
   const [saveLoading, setSaveLoading] = useState(false)
+  const [preferenceSetting, setPreferenceSetting] = useState({})
 
   /** 保存当前页面 */
   const saveCurrentPage = async handleType => {
@@ -50,11 +52,12 @@ export const Layout = memo(() => {
           >
             {getI18n('打开文档主页')}
           </Button>
+          <PreferenceSetting onChange={setPreferenceSetting} />
         </div>
       </div>
 
       <div className="flex-1 h-[0]">
-        <DocumentManage />
+        <DocumentManage preferenceSetting={preferenceSetting} />
       </div>
     </div>
   )
