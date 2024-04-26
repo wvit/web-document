@@ -1,5 +1,14 @@
 import { Readability } from '@mozilla/readability'
-import { dom, styleToString, Message, Action, getStorageSize } from '@/utils'
+import {
+  dom,
+  styleToString,
+  Message,
+  Action,
+  getStorageSize,
+  transformStr,
+} from '@/utils'
+
+// window.singleFileOriginImageUrl = true
 
 /** 重写 singleFile 的 fetch 资源方法 */
 const getRequest = domain => {
@@ -15,6 +24,7 @@ const getRequest = domain => {
     }
 
     if (resourceType === 'css') {
+      /** 缓存远程 css 资源 */
       const resourceResult = await Message.background.send(
         Action.Background.HandleIDB,
         {
@@ -31,9 +41,26 @@ const getRequest = domain => {
       window.webDocumentStyleLinks.push(url)
 
       return { status: 200 }
-    }
+    } else {
+      /** 替换原 fetch 方法，避免跨域问题 */
+      const res = await Message.background.send(Action.Background.Fetch, {
+        url,
+        requestOptions,
+      })
+      if (!res) return fetch(url, requestOptions)
+      const { status, responseHeaders, arrayBuffer } = res
 
-    return fetch(url, requestOptions)
+      return {
+        status,
+        headers: {
+          get: key => {
+            const alias = transformStr(key, 'pascalCase', '-')
+            return responseHeaders[key] || responseHeaders[alias]
+          },
+        },
+        arrayBuffer: () => new Uint8Array(arrayBuffer).buffer,
+      }
+    }
   }
 }
 

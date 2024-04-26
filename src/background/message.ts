@@ -64,18 +64,46 @@ Message.background.on(
 Message.background.on(
   Action.Background.CacheResource,
   async (message, sendResponse) => {
-    const { url, domain, resourceType, requestOptions } = message
-    const res = await fetch(url, requestOptions)
-    const content = await res.text()
-    const contentSize = getStorageSize(content)
-    const status = await storeHandles.resource.create({
-      id: url,
-      resourceType,
-      content,
-      domain,
-      contentSize,
-    })
+    try {
+      const { url, domain, resourceType, requestOptions } = message
+      const res = await fetch(url, requestOptions)
+      const content = await res.text()
+      const contentSize = getStorageSize(content)
+      const status = await storeHandles.resource.create({
+        id: url,
+        resourceType,
+        content,
+        domain,
+        contentSize,
+      })
 
-    sendResponse(status)
+      sendResponse(status)
+    } catch {
+      sendResponse(false)
+    }
+  }
+)
+
+/** 缓存远程资源 */
+Message.background.on(
+  Action.Background.Fetch,
+  async (message, sendResponse) => {
+    try {
+      const { url, requestOptions } = message
+      const res = await fetch(url, requestOptions)
+      const { status, headers } = res
+      const responseHeaders = Array.from(headers.keys()).reduce((prev, key) => {
+        return { ...prev, [key]: headers.get(key) }
+      }, {})
+      const arrayBuffer = Array.from(new Uint8Array(await res.arrayBuffer()))
+
+      sendResponse({
+        status,
+        responseHeaders,
+        arrayBuffer,
+      })
+    } catch {
+      sendResponse(null)
+    }
   }
 )

@@ -19,6 +19,8 @@ export namespace Action {
     SaveDocument = 'saveDocument',
     /** 缓存远程资源 */
     CacheResource = 'cacheResource',
+    /** 替换缓存资源的fetch方法，处理获取部分资源跨域问题 */
+    Fetch = 'fetch',
   }
 }
 
