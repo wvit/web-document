@@ -2,13 +2,13 @@ import { getI18n, getResource, catchLastError, qs } from '@/utils'
 import { saveDocument } from './message'
 
 catchLastError(chrome.contextMenus.create, {
-  id: 'savePage',
+  id: 'getPageData',
   title: getI18n('保存当前页面'),
   contexts: ['page'],
 })
 
 catchLastError(chrome.contextMenus.create, {
-  id: 'saveArticle',
+  id: 'getArticleData',
   title: getI18n('仅保存文章内容'),
   contexts: ['page'],
 })
@@ -23,7 +23,7 @@ catchLastError(chrome.contextMenus.create, {
 chrome.contextMenus.onClicked.addListener(info => {
   const { menuItemId } = info
 
-  if (['savePage', 'saveArticle'].includes(menuItemId as string)) {
+  if (['getPageData', 'getArticleData'].includes(menuItemId as string)) {
     saveDocument({ handleType: menuItemId })
   } else if (menuItemId === 'openDocumentPage') {
     chrome.tabs.create({

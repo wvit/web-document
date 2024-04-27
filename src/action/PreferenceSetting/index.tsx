@@ -9,15 +9,6 @@ import { objectHandles } from '@/utils/idb'
 
 const { Item, useForm } = Form
 
-export type PreferenceSettingType = {
-  /** 列表展示类型 */
-  listDisplayType: 'default' | 'domain'
-  /** 页面图片保存类型 */
-  imageSaveType: 'download' | 'url'
-  /** 图片最大缓存限制 */
-  imageDownloadMaxSize: number
-}
-
 export interface PreferenceSettingProps {
   /** 偏好设置数据发生改变 */
   onChange?: (setting: PreferenceSettingType) => void
@@ -42,8 +33,39 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
     const values = await formRef.validateFields()
 
     await objectHandles.globalConfig.set(values)
-
     setSettingVisible(false)
+  }
+
+  /** 渲染图片最大限制配置 */
+  const renderImgMaxSize = () => {
+    if (formRef.getFieldValue('imageSaveType') === 'download') {
+      return (
+        <Item
+          required
+          label="最大缓存图片"
+          help={<span className="text-xs">超过此大小的图片将会被忽略</span>}
+        >
+          <div className="flex items-center">
+            <Item
+              noStyle
+              name="imageDownloadMaxSize"
+              rules={[{ required: true }]}
+            >
+              <InputNumber
+                min={0.5}
+                max={10}
+                step={0.5}
+                className=" mr-1"
+                placeholder="1 ~ 10"
+              />
+            </Item>
+            MB
+          </div>
+        </Item>
+      )
+    }
+
+    return null
   }
 
   useEffect(() => {
@@ -68,7 +90,7 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
           initialValues={{
             listDisplayType: 'default',
             imageSaveType: 'download',
-            imageDownloadMaxSize: 1,
+            imageDownloadMaxSize: 0.5,
           }}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
@@ -92,38 +114,7 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
           </Item>
 
           <Item noStyle dependencies={['imageSaveType']}>
-            {() => {
-              return (
-                formRef.getFieldValue('imageSaveType') === 'download' && (
-                  <Item
-                    required
-                    label="最大缓存图片"
-                    help={
-                      <span className="text-xs">
-                        超过此大小的图片将会被忽略
-                      </span>
-                    }
-                  >
-                    <div className="flex items-center">
-                      <Item
-                        noStyle
-                        name="imageDownloadMaxSize"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber
-                          min={1}
-                          max={10}
-                          step={1}
-                          className=" mr-1"
-                          placeholder="1 ~ 10"
-                        />
-                      </Item>
-                      MB
-                    </div>
-                  </Item>
-                )
-              )
-            }}
+            {renderImgMaxSize}
           </Item>
         </Form>
       </Modal>

@@ -10,7 +10,9 @@ export const Layout = memo(() => {
   const [preferenceSetting, setPreferenceSetting] = useState({})
 
   /** 保存当前页面 */
-  const saveCurrentPage = async handleType => {
+  const saveCurrentPage = async (
+    handleType: 'getPageData' | 'getArticleData'
+  ) => {
     setSaveLoading(true)
     await Message.background.send(Action.Background.SaveDocument, {
       handleType,
@@ -31,7 +33,7 @@ export const Layout = memo(() => {
             loading={saveLoading}
             type="primary"
             className="mr-2"
-            onClick={() => saveCurrentPage('savePage')}
+            onClick={() => saveCurrentPage('getPageData')}
           >
             {getI18n('保存当前页面')}
           </Button>
@@ -39,7 +41,7 @@ export const Layout = memo(() => {
             loading={saveLoading}
             type="primary"
             className="mr-2"
-            onClick={() => saveCurrentPage('saveArticle')}
+            onClick={() => saveCurrentPage('getArticleData')}
           >
             {getI18n('仅保存文章内容')}
           </Button>

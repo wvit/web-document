@@ -8,9 +8,7 @@ import {
   transformStr,
 } from '@/utils'
 
-// window.singleFileOriginImageUrl = true
-
-/** 重写 singleFile 的 fetch 资源方法 */
+/** 重写 singleFile 的 fetch 方法 */
 const getRequest = domain => {
   return async (url, requestOptions) => {
     const resourceType = url.split('?')[0].split('.').pop()
@@ -65,11 +63,16 @@ const getRequest = domain => {
 }
 
 /** 获取当前页面信息 */
-const getPageData = async () => {
-  const { href, host } = location
-  const domain = host.startsWith('www.') ? host.slice(4) : host
+const getPageData = async (preferenceSetting: PreferenceSettingType) => {
+  const { imageSaveType, imageDownloadMaxSize } = preferenceSetting
+
+  /** 是否保留原始图片路径 */
+  window.singleFileOriginImageUrl = imageSaveType === 'url'
   /** 清除之前缓存页面时的样式外链文件 */
   window.webDocumentStyleLinks = []
+
+  const { href, host } = location
+  const domain = host.startsWith('www.') ? host.slice(4) : host
   /** 获取页面数据 */
   const singleFileData = await singlefile.getPageData(
     {
@@ -89,7 +92,7 @@ const getPageData = async () => {
       blockAudios: true,
       blockVideos: true,
 
-      maxResourceSize: 100,
+      maxResourceSize: imageDownloadMaxSize || 1,
       maxResourceSizeEnabled: true,
     },
     {
@@ -122,12 +125,12 @@ const getPageData = async () => {
 Message.content.on(
   Action.Content.GetDocumentData,
   async (message, sendResponse) => {
-    const { handleType } = message
-    const { htmlDocument, pageData } = await getPageData()
+    const { handleType, preferenceSetting } = message
+    const { htmlDocument, pageData } = await getPageData(preferenceSetting)
 
-    if (handleType === 'savePage') {
+    if (handleType === 'getPageData') {
       sendResponse(pageData)
-    } else if (handleType === 'saveArticle') {
+    } else if (handleType === 'getArticleData') {
       const { content, textContent } = new Readability(htmlDocument, {
         keepClasses: true,
       }).parse()!
