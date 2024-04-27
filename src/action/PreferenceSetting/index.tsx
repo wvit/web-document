@@ -2,6 +2,7 @@ import { memo, useState, useEffect } from 'react'
 import Button from 'antd/es/button'
 import Modal from 'antd/es/modal'
 import Form from 'antd/es/form'
+import InputNumber from 'antd/es/input-number'
 import Radio from 'antd/es/radio'
 import { getI18n } from '@/utils'
 import { objectHandles } from '@/utils/idb'
@@ -12,7 +13,9 @@ export type PreferenceSettingType = {
   /** 列表展示类型 */
   listDisplayType: 'default' | 'domain'
   /** 页面图片保存类型 */
-  pageImgSaveType: 'base64' | 'url'
+  imageSaveType: 'download' | 'url'
+  /** 图片最大缓存限制 */
+  imageDownloadMaxSize: number
 }
 
 export interface PreferenceSettingProps {
@@ -40,19 +43,18 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
 
     await objectHandles.globalConfig.set(values)
 
-    onChange?.(values)
     setSettingVisible(false)
   }
 
   useEffect(() => {
-    if (settingVisible) getPreferenceSetting()
+    getPreferenceSetting()
   }, [settingVisible])
 
   return (
     <>
       <Modal
         open={settingVisible}
-        width="60vw"
+        width="65vw"
         title="偏好设置"
         styles={{ header: { margin: 0 } }}
         onCancel={() => setSettingVisible(false)}
@@ -65,7 +67,8 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
           className="flex flex-col pt-6"
           initialValues={{
             listDisplayType: 'default',
-            pageImgSaveType: 'base64',
+            imageSaveType: 'download',
+            imageDownloadMaxSize: 1,
           }}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
@@ -79,13 +82,48 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
             />
           </Item>
 
-          <Item name="pageImgSaveType" label="图片保存方案">
+          <Item name="imageSaveType" label="图片保存方式">
             <Radio.Group
               options={[
-                { label: '转为base64', value: 'base64' },
+                { label: '下载并缓存', value: 'download' },
                 { label: '保留原始url', value: 'url' },
               ]}
             />
+          </Item>
+
+          <Item noStyle dependencies={['imageSaveType']}>
+            {() => {
+              return (
+                formRef.getFieldValue('imageSaveType') === 'download' && (
+                  <Item
+                    required
+                    label="最大缓存图片"
+                    help={
+                      <span className="text-xs">
+                        超过此大小的图片将会被忽略
+                      </span>
+                    }
+                  >
+                    <div className="flex items-center">
+                      <Item
+                        noStyle
+                        name="imageDownloadMaxSize"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber
+                          min={1}
+                          max={10}
+                          step={1}
+                          className=" mr-1"
+                          placeholder="1 ~ 10"
+                        />
+                      </Item>
+                      MB
+                    </div>
+                  </Item>
+                )
+              )
+            }}
           </Item>
         </Form>
       </Modal>
