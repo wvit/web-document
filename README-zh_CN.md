@@ -4,6 +4,8 @@
 
 [去 Chrome Web Store 安装](https://chromewebstore.google.com/detail/gjnkjamcdgomkghmfgaobnllnlinkfmn)
 
+[去 Microsoft Edge 安装](https://microsoftedge.microsoft.com/addons/detail/lphefhfpdohfmpcodgddcdbcgnboodpj)
+
 [English](./README.md) ｜ 中文
 
 ### 功能特性
@@ -21,6 +23,8 @@
 6. 本地记忆您的所有偏好配置，例如使用过的搜索关键词、排列方式等配置。
 
 7. 支持 JSON 的导入导出文档，同时支持使用远程 URL 导入。
+
+8. 支持保留图片原始 URL，或配置图片最大缓存限制。
 
 （需注意本插件不适合功能交互型网站，因为此类网站依赖大量 JS 和需要请求远程服务器，不符合本插件场景）
 
@@ -56,10 +60,11 @@ https://github.com/wvit/web-document/assets/21981758/73822f8f-852a-4d71-b4a9-0d6
 
 ### 注意事项
 
-1. 保存安装插件之前的网页时，需要先将网页刷新一次。
+1. 如果你需要卸载后重新安装，记得将页面文档导出保存，然后再导入配置，以防丢失已保存的页面文档。
 
-2. 本插件会使用一些系统提示，如果保存成功却没有收到提示，您可以检查一下系统的通知配置。
+2. 保存安装插件之前的网页时，需要先将网页刷新一次。
 
+3. 本插件会使用一些系统提示，如果保存成功却没有收到提示，您可以检查一下系统的通知配置。
 
 ###### 插件提示.jpg
 
