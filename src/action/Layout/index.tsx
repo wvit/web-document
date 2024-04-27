@@ -2,7 +2,7 @@ import { memo, useState } from 'react'
 import Button from 'antd/es/button'
 import { Message, Action, getResource, getI18n } from '@/utils'
 import { DocumentManage } from '../DocumentManage'
-import { PreferenceSetting } from '../PreferenceSetting'
+import { Preferences } from '../Preferences'
 
 /** 页面布局 */
 export const Layout = memo(() => {
@@ -54,7 +54,7 @@ export const Layout = memo(() => {
           >
             {getI18n('打开文档主页')}
           </Button>
-          <PreferenceSetting onChange={setPreferenceSetting} />
+          <Preferences onChange={setPreferenceSetting} />
         </div>
       </div>
 

@@ -9,13 +9,13 @@ import { objectHandles } from '@/utils/idb'
 
 const { Item, useForm } = Form
 
-export interface PreferenceSettingProps {
+export interface PreferencesProps {
   /** 偏好设置数据发生改变 */
-  onChange?: (setting: PreferenceSettingType) => void
+  onChange?: (setting: PreferenceSetting) => void
 }
 
 /** 偏好设置 */
-export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
+export const Preferences = memo((props: PreferencesProps) => {
   const { onChange } = props
   const [settingVisible, setSettingVisible] = useState(false)
   const [formRef] = useForm()
@@ -25,7 +25,7 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
     const preferenceSetting = await objectHandles.globalConfig.get()
 
     formRef.setFieldsValue(preferenceSetting)
-    onChange?.(preferenceSetting as PreferenceSettingType)
+    onChange?.(preferenceSetting as PreferenceSetting)
   }
 
   /** 保存偏好配置 */
@@ -42,8 +42,12 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
       return (
         <Item
           required
-          label="最大缓存图片"
-          help={<span className="text-xs">超过此大小的图片将会被忽略</span>}
+          label={getI18n('最大缓存图片')}
+          help={
+            <span className="text-xs">
+              {getI18n('超过此大小的图片将会被忽略')}
+            </span>
+          }
         >
           <div className="flex items-center">
             <Item
@@ -56,7 +60,7 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
                 max={10}
                 step={0.5}
                 className=" mr-1"
-                placeholder="1 ~ 10"
+                placeholder="0.5 ~ 10"
               />
             </Item>
             MB
@@ -76,13 +80,13 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
     <>
       <Modal
         open={settingVisible}
-        width="65vw"
-        title="偏好设置"
+        width="75vw"
+        title={getI18n('偏好设置')}
         styles={{ header: { margin: 0 } }}
         onCancel={() => setSettingVisible(false)}
         onOk={savePreferenceSetting}
-        okText="保存"
-        cancelText="取消"
+        okText={getI18n('保存')}
+        cancelText={getI18n('取消')}
       >
         <Form
           form={formRef}
@@ -95,7 +99,7 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
         >
-          <Item name="listDisplayType" label="排列方式">
+          <Item name="listDisplayType" label={getI18n('排列方式')}>
             <Radio.Group
               options={[
                 { label: getI18n('默认排列'), value: 'default' },
@@ -104,11 +108,11 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
             />
           </Item>
 
-          <Item name="imageSaveType" label="图片保存方式">
+          <Item name="imageSaveType" label={getI18n('图片保存方式')}>
             <Radio.Group
               options={[
-                { label: '下载并缓存', value: 'download' },
-                { label: '保留原始url', value: 'url' },
+                { label: getI18n('下载并缓存'), value: 'download' },
+                { label: getI18n('保留原始URL'), value: 'url' },
               ]}
             />
           </Item>
@@ -123,7 +127,7 @@ export const PreferenceSetting = memo((props: PreferenceSettingProps) => {
         size="small"
         onClick={() => setSettingVisible(true)}
       >
-        偏好设置
+        {getI18n('偏好设置')}
       </Button>
     </>
   )

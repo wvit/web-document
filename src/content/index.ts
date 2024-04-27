@@ -63,7 +63,7 @@ const getRequest = domain => {
 }
 
 /** 获取当前页面信息 */
-const getPageData = async (preferenceSetting: PreferenceSettingType) => {
+const getPageData = async (preferenceSetting: PreferenceSetting) => {
   const { imageSaveType, imageDownloadMaxSize } = preferenceSetting
 
   /** 是否保留原始图片路径 */

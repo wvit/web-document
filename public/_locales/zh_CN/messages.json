@@ -109,5 +109,29 @@
   },
   "Please_select_the_document_to_import": {
     "message": "请选择需要导入的文档"
+  },
+  "Preferences": {
+    "message": "偏好设置"
+  },
+  "Download_and_Cache": {
+    "message": "下载并缓存"
+  },
+  "Keep_original_URL": {
+    "message": "保留原始URL"
+  },
+  "Image_saving_method": {
+    "message": "图片保存方式"
+  },
+  "Arrangement_method": {
+    "message": "排列方式"
+  },
+  "Save": {
+    "message": "保存"
+  },
+  "Images_larger_than_this_size_will_be_ignored": {
+    "message": "超过此大小的图片将会被忽略"
+  },
+  "Maximum_cached_images": {
+    "message": "最大缓存图片"
   }
 }

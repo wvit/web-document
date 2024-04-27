@@ -134,7 +134,6 @@ export const DocumentManage = memo((props: DocumentManageProps) => {
 
   useEffect(() => {
     getDocumentData()
-
     Message.action.on(Action.Action.RefreshDocumentData, getDocumentData)
   }, [])
 

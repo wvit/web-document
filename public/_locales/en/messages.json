@@ -109,5 +109,29 @@
   },
   "Please_select_the_document_to_import": {
     "message": "Please select the document to import"
+  },
+  "Preferences": {
+    "message": "Preferences"
+  },
+  "Download_and_Cache": {
+    "message": "Download and Cache"
+  },
+  "Keep_original_URL": {
+    "message": "Keep original URL"
+  },
+  "Image_saving_method": {
+    "message": "Image saving method"
+  },
+  "Arrangement_method": {
+    "message": "Arrangement method"
+  },
+  "Save": {
+    "message": "Save"
+  },
+  "Images_larger_than_this_size_will_be_ignored": {
+    "message": "Images larger than this size will be ignored"
+  },
+  "Maximum_cached_images": {
+    "message": "Maximum cached images"
   }
 }

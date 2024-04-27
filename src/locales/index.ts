@@ -152,6 +152,38 @@ export const locales = [
     zh_CN: '请选择需要导入的文档',
     en: 'Please select the document to import',
   },
+  {
+    zh_CN: '偏好设置',
+    en: 'Preferences',
+  },
+  {
+    zh_CN: '下载并缓存',
+    en: 'Download and Cache',
+  },
+  {
+    zh_CN: '保留原始URL',
+    en: 'Keep original URL',
+  },
+  {
+    zh_CN: '图片保存方式',
+    en: 'Image saving method',
+  },
+  {
+    zh_CN: '排列方式',
+    en: 'Arrangement method',
+  },
+  {
+    zh_CN: '保存',
+    en: 'Save',
+  },
+  {
+    zh_CN: '超过此大小的图片将会被忽略',
+    en: 'Images larger than this size will be ignored',
+  },
+  {
+    zh_CN: '最大缓存图片',
+    en: 'Maximum cached images',
+  },
 ] as const
 
 /** 获取国际化字段 */

@@ -1,5 +1,5 @@
 /** 偏好设置 */
-declare type PreferenceSettingType = {
+declare type PreferenceSetting = {
   /** 列表展示类型 */
   listDisplayType: 'default' | 'domain'
   /** 页面图片保存类型 */
