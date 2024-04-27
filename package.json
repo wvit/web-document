@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "patch": "pnpm patch-commit 'patches/readability'",
-    "i18n": "node ./scripts/i18n.js",
     "content": "vite build --config content.vite.ts --watch",
-    "build": "vite build --config content.vite.ts && vite build && npm run i18n",
+    "build": "vite build --config content.vite.ts && vite build",
     "build:watch": "vite build --watch",
     "build:entry": "entry=background npm run build:watch",
     "build:zip": "npm run build && node ./scripts/zip.js"

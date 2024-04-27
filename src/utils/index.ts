@@ -1,5 +1,6 @@
 export * from '@vorker/utils'
-export * from './chrome'
+export * from '@vorker/chrome'
+export * from '@/locales'
 export * from './message'
 
 /** 转换字符串 */
