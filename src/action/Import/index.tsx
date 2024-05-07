@@ -138,12 +138,12 @@ export const Import = memo((props: ImportProps) => {
           items: [
             {
               key: 'file',
-              label: getI18n('上传JSON文件'),
+              label: getI18n('上传 JSON 文件'),
               onClick: uploadJsonFile,
             },
             {
               key: 'url',
-              label: getI18n('从URL导入'),
+              label: getI18n('从 URL 导入 JSON'),
               onClick: () => setImportType('url'),
             },
           ],

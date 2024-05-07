@@ -92,11 +92,11 @@
   "Cancel_import": {
     "message": "取消导入"
   },
-  "Import_from_URL": {
-    "message": "从URL导入"
+  "Import_JSON_from_URL": {
+    "message": "从 URL 导入 JSON"
   },
   "Upload_JSON_file": {
-    "message": "上传JSON文件"
+    "message": "上传 JSON 文件"
   },
   "Failed_to_import_URL": {
     "message": "导入URL地址失败"
@@ -133,5 +133,17 @@
   },
   "Maximum_cached_images": {
     "message": "最大缓存图片"
+  },
+  "Exporting_to_JSON_file_for_you": {
+    "message": "正在为您导出为 JSON 文件"
+  },
+  "Export_as_JSON_file": {
+    "message": "导出为 JSON 文件"
+  },
+  "Export_as_HTML_file_zip": {
+    "message": "导出为 HTML 文件(zip)"
+  },
+  "Exporting_HTML_ZIP_file_for_you": {
+    "message": "正在为您导出 HTML ZIP文件"
   }
 }

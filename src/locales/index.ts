@@ -129,11 +129,11 @@ export const locales = [
     en: 'Cancel import',
   },
   {
-    zh_CN: '从URL导入',
-    en: 'Import from URL',
+    zh_CN: '从 URL 导入 JSON',
+    en: 'Import JSON from URL',
   },
   {
-    zh_CN: '上传JSON文件',
+    zh_CN: '上传 JSON 文件',
     en: 'Upload JSON file',
   },
   {
@@ -183,6 +183,22 @@ export const locales = [
   {
     zh_CN: '最大缓存图片',
     en: 'Maximum cached images',
+  },
+  {
+    zh_CN: '正在为您导出为 JSON 文件',
+    en: 'Exporting to JSON file for you',
+  },
+  {
+    zh_CN: '导出为 JSON 文件',
+    en: 'Export as JSON file',
+  },
+  {
+    zh_CN: '导出为 HTML 文件(zip)',
+    en: 'Export as HTML file (zip)',
+  },
+  {
+    zh_CN: '正在为您导出 HTML ZIP文件',
+    en: 'Exporting HTML ZIP file for you',
   },
 ] as const
 

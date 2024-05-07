@@ -92,8 +92,8 @@
   "Cancel_import": {
     "message": "Cancel import"
   },
-  "Import_from_URL": {
-    "message": "Import from URL"
+  "Import_JSON_from_URL": {
+    "message": "Import JSON from URL"
   },
   "Upload_JSON_file": {
     "message": "Upload JSON file"
@@ -133,5 +133,17 @@
   },
   "Maximum_cached_images": {
     "message": "Maximum cached images"
+  },
+  "Exporting_to_JSON_file_for_you": {
+    "message": "Exporting to JSON file for you"
+  },
+  "Export_as_JSON_file": {
+    "message": "Export as JSON file"
+  },
+  "Export_as_HTML_file_zip": {
+    "message": "Export as HTML file (zip)"
+  },
+  "Exporting_HTML_ZIP_file_for_you": {
+    "message": "Exporting HTML ZIP file for you"
   }
 }
